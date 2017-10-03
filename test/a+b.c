@@ -5,6 +5,7 @@ int main(void)
     int a = 12;
     int *p = &a;
     printf("%p %p %d",p ,&p ,*p);
+    printf("HelloWorld");
     system("pause");
     return 0;
 }
