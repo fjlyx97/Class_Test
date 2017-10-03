@@ -9,5 +9,6 @@ int main()
     printf("%.4f \n" , 32.4); //32.4000
     printf("%2.3f \n" , 234.3); //234.300
     system("pause");
+    getchar();
     return 0;
 }
