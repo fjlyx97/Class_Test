@@ -2,7 +2,7 @@
 #include "stdlib.h"
 int main()
 {
-    printf("%d",7/2); //0 : 48 4:52
+    printf("%d",'9'); //0 : 48 4:52
     //printf("helloworld \n");
     //char a[] = "myname";
     //printf("%2s \n" , a);  //myname
