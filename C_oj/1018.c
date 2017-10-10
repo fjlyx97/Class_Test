@@ -51,8 +51,8 @@ int main(void)
             index = 1;
         }
     }
+    free(str);
     printf("%d",result);
-    //free(str);
     system("pause");
     return 0;
 }
