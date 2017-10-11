@@ -4,13 +4,18 @@
 int add_num(int);
 int main(void)
 {
-    float x;
-    scanf("%f",&x);
-    float result = x;
+    double x;
+    scanf("%lf",&x);
+    double result = x;
     int i;
-    float temp;
+    double temp = 0;
     for (i = 1 ; ; i++)
     {
+        temp = pow(x,(i+1) * 2 - 1) / add_num((i+1) * 2 -1);
+        if ( fabs(temp) < 10e-5)
+        {
+            break;
+        }
         if (i % 2 == 0)
         {
             result += pow(x,(i+1) * 2 - 1) / add_num((i+1) * 2 -1);
@@ -19,18 +24,8 @@ int main(void)
         {
             result -= pow(x,(i+1) * 2 - 1) / add_num((i+1) * 2 -1);
         }
-        temp = pow(x,(i+1) * 2 - 1) / add_num((i+1) * 2 -1);
-        //if (temp < 0)
-        //{
-        //    temp = -temp;
-        //}
-        printf("%f\n",temp);
-        if (temp < pow(10.0,-5))
-        {
-            break;
-        }
     }
-    printf("%.3f",result);
+    printf("%.3lf",result);
 
     system("pause");
     return 0;
