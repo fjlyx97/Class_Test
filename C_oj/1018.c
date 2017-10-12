@@ -29,9 +29,9 @@ int main(void)
 {
     int N;
     scanf("%d",&N);
-    char* str = (char*)malloc(sizeof(char) * N); //动态申请字符数组空间。
+    char* str = (char*)malloc(sizeof(char) * N); //动态申请字符数组空间。 //此处应为N+1，防止free释放错误。
     scanf("%s",str);
-    int i , index = 1 , result = 0;
+    int i , index = 2 , result = 0;
     for (i = 0 ; i < N ; i++)
     {
         if (str[i] == str[i+1])
