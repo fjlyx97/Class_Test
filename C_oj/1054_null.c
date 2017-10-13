@@ -1,10 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 int judge(int); //判断是否为素数。
+int add_judge(int , int);
 int main(void)
 {
     int n;
     scanf("%d",&n);
+    int i = 0;
+    int save_num[][6];
+    int index = 0;
+
+    for ( i = 0 ; i < n ; i++)
+    {
+        if (judge(1+i))
+        {
+            save_num[]
+        }
+    }
 
     system("pause");
     return 0;
