@@ -1,8 +1,11 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include <math.h>
 int main()
 {
-    printf("%d",2.0/0);
+    unsigned long long temp = pow(10,18);
+    printf("%d",temp);
+    //printf("%d",2.0/0);
     //printf("%d",'z'); //0 : 48 4:52
     //printf("helloworld \n");
     //char a[] = "myname";
