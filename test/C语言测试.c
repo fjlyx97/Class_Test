@@ -3,8 +3,8 @@
 #include <math.h>
 int main()
 {
-    unsigned long long temp = pow(10,18);
-    printf("%d",temp);
+    int c = 3 * 0.5;
+    printf("%f",3*0.5);
     //printf("%d",2.0/0);
     //printf("%d",'z'); //0 : 48 4:52
     //printf("helloworld \n");
