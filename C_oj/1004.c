@@ -17,6 +17,6 @@ int main(void)
             }
         }
     }
-    system("pause");
+    //system("pause");
     return 0;
 }
