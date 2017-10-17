@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+//本题需要注意数字相等的情况，很重要。
 void judge(const int* , int );
 int main(void)
 {
@@ -23,9 +24,9 @@ void judge(const int* num , int day_index)
 {
     int i = 0 ;
     int days = 0;
-    for (i = day_index-1 ; i > 0 ; i-- )
+    for (i = day_index-1 ; i >= 0 ; i-- )
     {
-        if ( num[day_index] > num[i])
+        if ( num[day_index] >= num[i])
         {
             days++;
         }

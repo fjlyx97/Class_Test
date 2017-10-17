@@ -2,37 +2,23 @@
 #include <stdlib.h>
 int main(void)
 {
-    int i = 1 , j = 1 , k = 1;
-    int num = 0;
-    int save_num[1000] = {1};
-    int l = 0 , temp = 0;
-    for (i = 1 ; i < 10 ; i++)
+    int i , j , k;
+    int result = 0;
+    for ( i = 1 ; i < 10 ; i++ )
     {
-        for (j = i ; j < 10 ; j++)
+        for ( j = 1 ; j < 10 ; j++)
         {
-            for (k = j ; k < 10 ; k++)
+            for ( k = 1 ; k < 10 ; k++)
             {
-                if ( (i + j + k) % 2 == 1 )
+                if (( i + j + k ) % 2 == 1 && i != j && i != k && j != k )
                 {
-                    for (l = 0 ; ;l++)
-                    {
-                        if ( save_num[l] == 0)
-                        {
-                            printf("%d\n",i+j+k);
-                            save_num[l] = (i + j + k);
-                            num++;
-                            break;
-                        }
-                        if ( (i + j + k ) == save_num[l])
-                        {
-                            break;
-                        }
-                    } 
+                    result += 1;
                 }
             }
         }
     }
-    printf("%d",num);
+    printf("%d",result);
+    //最终答案需要除以A33，即重复的情况。
     system("pause");
     return 0;
 }
