@@ -28,6 +28,7 @@ int main(void)
         //{
         //    printf("No\n");
         //}
+        //第二种解法目前允许，第一种解法目前错误未知。
         while (num[j][0] > 0)
         {
             num[j][0] -= num[j][4];
@@ -46,6 +47,8 @@ int main(void)
         {
             printf("No\n");
         }
+        hp1_over = 0;
+        hp2_over = 0;
     }
     system("pause");
     return 0;
