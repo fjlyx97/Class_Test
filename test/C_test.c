@@ -4,18 +4,13 @@
 #include <math.h>
 int main()
 {
-    char ch1[20],ch2[20];
-    int a,b,m,i,j=0;
-    gets(ch1);
-    scanf("%d%d",&a,&b);
-    m=strlen(ch1);
-    for(i=a;i<=m;i++){
-        ch2[j]=ch1[i-1];
-        j+=1;
-    }
-    ch2[7] = '\0';
-    puts(ch2);
-    
+    printf("%d %d %d\n",'k' , 'e' , 'y');
+    char a[10];
+    scanf("%s",a);
+    if ( !strcmp(a,"key"))
+    {
+        printf("ok");
+    }   
 
 
     //int c = 3 * 0.5;
