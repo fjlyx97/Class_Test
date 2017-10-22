@@ -1,27 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 int main(void)
 {
     int N;
     scanf("%d",&N);
-    int num[N][N] = {{0}};
+    int num[N][N];
+    int result = 0;
     int i = 0 , j = 0;
-    for (i = 0 ; i < N ; i++)
+    for ( i = 0 ; i < N ; i++)
     {
-        for (j = 0 ; j < i+1 ; j++)
+        for ( j = 0 ; j < N ; j++)
         {
-            scanf("%d",&num[i][j]);
+            num[i][j] = -1;
         }
     }
-    for (i = 0 ; i < N ; i++)
+    for ( i = 0 ; i < N ; i++)
     {
-        for (j = 0 ; j < N ; j++)
+        for ( j = 0 ; j <= i ; j++)
         {
-            printf("%d ",num[i][j]);
+            scanf("%d",&num[i][j]);         
         }
-        printf("\n");
     }
-
+    int k = 0;
+    for ( i = 0 ; i < N ; i++)
+    {
+        result += num[i][0];
+        for ( j = i+1 ; j < N ; j++)
+        {
+            if ( num[j][k] > num[j][k+1] )
+            {
+                result += num[j][k+1];
+                k = k+1;
+            }
+            else
+            {
+                result += num[j][k];
+            }
+        }
+        break;
+    }
+    printf("%d",result);
     system("pause");
     return 0;
 }

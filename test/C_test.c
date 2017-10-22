@@ -2,17 +2,28 @@
 #include "stdlib.h"
 #include <string.h>
 #include <math.h>
-int main()
+int main(void)
 {
-    printf("%d %d %d\n",'k' , 'e' , 'y');
-    char a[10];
-    scanf("%s",a);
-    if ( !strcmp(a,"key"))
-    {
-        printf("ok");
-    }   
+    char a , b , c, d;
+    b = '\xbc';
+    d = '\023';
+    printf("%c %c\n", b, d);   
 
 
+
+    //int x , y;
+    //x = 5;
+    //y = x++ * x++;
+    //y = --y * --y; 
+    //int num[5] = {1,2,3,4,5};
+    //printf("%d",*(num+3));
+    //printf("%d %d %d\n",'k' , 'e' , 'y');
+    //char a[10];
+    //scanf("%s",a);
+    //if ( !strcmp(a,"key"))
+    //{
+    //    printf("ok");
+    //}   
     //int c = 3 * 0.5;
     //printf("%f",3*0.5);
     //printf("%d",2.0/0);
