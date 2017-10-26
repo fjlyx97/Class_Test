@@ -13,9 +13,6 @@ int main(void)
         year++;
     }
     printf("%d",year);
-
-
-
     system("pause");
     return 0;
 }
