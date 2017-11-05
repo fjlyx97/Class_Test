@@ -4,11 +4,134 @@
 #include <math.h>
 int main(void)
 {
-    int a = 9;
-    int b = 2;
-    float x = 8.8, y = 1.1, z;
-    z = a / 2 + b * x / y + 1 / 2;
-    printf("%5.2f\n",z);
+    int num[5];
+    int i = 0;
+    for ( i = 0 ; i < 5 ; i++)
+    {
+        scanf("%d",&num[i]);
+    }
+    for ( i = 0 ; i < 5 ; i++)
+    {
+        printf("%d\n",num[i]);
+    }
+
+
+
+
+    //char c ;
+    //c = 0362;    
+    //printf("%d\n",c);
+    //char b = 242;
+    //printf("%c",b);
+    //printf("%f\n",3.14e+5);
+    //printf("%lf\n",3.14e+2L);
+    //scanf("%d",&n);
+    //int i;
+    //int result = 0;
+    //for ( i = 1 ; i < n ; i++ )
+    //{
+    //    if ( n % i == 0 )
+    //    {
+    //        result = result + i;
+    //    }
+    //}
+    //if ( n == result)
+    //{
+    //    printf("Yes");
+    //}
+    //else
+    //{
+    //    printf("No");
+    //}
+
+    //int a , b , c;
+    //scanf("%d %d %d",&a,&b,&c);
+    //int num = 10;
+    //for ( num = 10 ; num <= 100 ; num++)
+    //{
+    //    if ( num % 3 == a)
+    //    {
+    //        if (num % 5 == b)
+    //        {
+    //            if (num % 7 == c)
+    //            {
+    //                printf("%d\n",num);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+    //int i = 0;
+    //scanf("%d",&i);
+    //switch (i)
+    //{
+    //    case 1:
+    //        printf("1\n");
+    //        break;
+    //    case 2:
+    //        printf("2\n");
+    //        break;
+    //    case 3:
+    //        printf("3\n");
+    //        break;
+    //    case 4:
+    //        printf("4\n");
+    //        break;
+    //    default:
+    //        printf("error");
+    //        break;
+    //}
+
+
+    //float begin = 10;
+    //float begin_2 = 20;
+    //float add;
+    //int year = 0;
+    //scanf("%f",&add);
+    //while ( begin <= begin_2)
+    //{
+    //    begin = begin * (1 + add);
+    //    year++;
+    //}
+    //printf("%d",year);
+
+
+    //int i;
+    //float result = 1;
+    //for ( i = 1 ; i < 100 ; i++)
+    //{
+    //    if ( i % 2 == 1)
+    //    {
+    //        result = result + 1.0 / (i+1);
+    //    }
+    //    else
+    //    {
+    //        result = result - 1.0 / (i+1);
+    //    }
+    //    printf("%f\n",result);
+    //}
+
+    //char str = 'a';
+    //printf("%d %c\n",str , str);
+    //str = str - 32;
+    //printf("%d %c",str , str);
+
+    //int a = 9;
+    //int b = 2;
+    //float x = 8.8, y = 1.1, z;
+    //z = a / 2 + b * x / y + 1 / 2;
+    //printf("%5.2f\n",z);
 
     //int a = 2;
     //a %= 4 - 1;

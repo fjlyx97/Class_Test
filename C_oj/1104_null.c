@@ -22,23 +22,19 @@ int main(void)
             scanf("%d",&num[i][j]);         
         }
     }
-    int k = 0;
-    for ( i = 0 ; i < N ; i++)
+    result += num[0][0];
+    j = 0;
+    for ( i = 1 ; i < N ; i++)
     {
-        result += num[i][0];
-        for ( j = i+1 ; j < N ; j++)
+        if ( num[i][j] > num[i][j+1])
         {
-            if ( num[j][k] > num[j][k+1] )
-            {
-                result += num[j][k+1];
-                k = k+1;
-            }
-            else
-            {
-                result += num[j][k];
-            }
+            result += num[i][j+1];
+            j = j + 1;
         }
-        break;
+        else
+        {
+            result += num[i][j];
+        }
     }
     printf("%d",result);
     system("pause");
