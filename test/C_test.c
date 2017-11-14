@@ -4,19 +4,27 @@
 #include <math.h>
 int main(void)
 {
-    int num[5];
-    int i = 0;
-    for ( i = 0 ; i < 5 ; i++)
-    {
-        scanf("%d",&num[i]);
-    }
-    for ( i = 0 ; i < 5 ; i++)
-    {
-        printf("%d\n",num[i]);
-    }
+    int num[] = {0,1};
+    printf("%p %p %p\n",&num,num,&num[0]);
+    printf("%p %p %p",&num+1,num+1,&num[0]+1);
 
+    //char str[10];
+    //gets(str);
+    //printf("%c",str);
+    //int a[3][2] = {1,2,3,4,5,6};
+    //int num[] = {'A','B','\0'};   
+    //printf("%s",num);
 
-
+    //int num[5];
+    //int i = 0;
+    //for ( i = 0 ; i < 5 ; i++)
+    //{
+    //    scanf("%d",&num[i]);
+    //}
+    //for ( i = 0 ; i < 5 ; i++)
+    //{
+    //    printf("%d\n",num[i]);
+    //}
 
     //char c ;
     //c = 0362;    
