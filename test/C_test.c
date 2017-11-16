@@ -1,23 +1,31 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <math.h>
-int main(void)
+int main()
 {
-    int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
-    int i;
-    head = 1;
-    tail = 10;
-    while ( head < tail )
+    char a[101],s[101];
+    int i,len,mid,next,top;
+    gets(a);
+    len=strlen(a); 
+    mid=len/2-1; 
+    top=0;
+    for(i=0;i<=mid;i++)
+        s[++top]=a[i];
+    if(len%2==0)
+        next=mid+1;
+    else
+        next=mid+2;
+    for(i=next;i<=len-1;i++)
     {
-        printf("%d ",q[head]);
-        head++;
-
-        q[tail] = q[head];
-        tail++;
-
-        head++;
+        if(a[i]!=s[top])
+        break;
+        top--;
     }
+    if(top==0)
+        printf("Yes");
+    else
+        printf("No");
+
     system("pause");
     return 0;
 }
