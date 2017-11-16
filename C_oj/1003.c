@@ -28,10 +28,6 @@ int main(void)
     {
         for ( i = index+1 ; i < N ; i++)
         {
-            //if (str[i] == "over")
-            //{
-            //    break;
-            //}
             if (strcmp(str[index],str[i]) == 0)
             {
                 strcpy(str_insert[index],str[i]);
