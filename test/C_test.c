@@ -3,29 +3,23 @@
 #include <string.h>
 int main()
 {
-    char a[101],s[101];
-    int i,len,mid,next,top;
-    gets(a);
-    len=strlen(a); 
-    mid=len/2-1; 
-    top=0;
-    for(i=0;i<=mid;i++)
-        s[++top]=a[i];
-    if(len%2==0)
-        next=mid+1;
-    else
-        next=mid+2;
-    for(i=next;i<=len-1;i++)
+    char N[52],k,i;
+    gets(N);
+	for(k=0;;k++)
+	{
+        if ( N[k] == '\0')
+        {
+            break;
+        }
+		if('A'<=N[k] && N[k]<'Z')
+        {
+            N[k]=N[k]+32;
+        }
+	}
+	for(i=0;i != '\0';i++)
     {
-        if(a[i]!=s[top])
-        break;
-        top--;
+		printf("%c",N[i]);
     }
-    if(top==0)
-        printf("Yes");
-    else
-        printf("No");
-
     system("pause");
     return 0;
 }
