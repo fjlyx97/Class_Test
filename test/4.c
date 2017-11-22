@@ -2,63 +2,24 @@
 #include <stdlib.h>
 int main(void)
 {
-	int n;
-	int num[10];
-	int i = 0;
 	int x;
-	int index = 0;
-	int temp;
-	int status;
-	scanf("%d",&n);
-	for (i = 0 ; i < n ; i++)
-	{
-		scanf("%d",&num[i]);
-	}
-	if (num[0] > num[1])
-	{
-		status = 0;
-	}
-	else
-	{
-		status = 1;
-	}
 	scanf("%d",&x);
-	num[n] = x;
-	if ( 0 == status)
+	int i;
+	int result = 0;
+	for (i = 1 ; i < x ; i++)
 	{
-		for ( i = n ; ; i--)
+		if ( x % i == 0)
 		{
-			if (num[i] > num[i-1])
-			{
-				temp = num[i];
-				num[i] = num[i-1];
-				num[i-1] = temp;
-			}
-			else
-			{
-				break;
-			}
+			result += i;
 		}
+	}
+	if ( result == x)
+	{
+		printf("yes");
 	}
 	else
 	{
-		for ( i = n ; ; i--)
-		{
-			if (num[i] < num[i-1])
-			{
-				temp = num[i];
-				num[i] = num[i-1];
-				num[i-1] = temp;
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-	for (i = 0 ; i <= n ; i++)
-	{
-		printf("%d ",num[i]);
+		printf("no");
 	}
 	system("pause");
 	return 0;
