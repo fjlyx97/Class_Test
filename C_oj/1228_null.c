@@ -1,32 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+int f[6];
 int main(void)
 {
-    int a = 0 , b = 0 , c = 0 , d = 0 , e = 0 , f = 0;
-    int result = 0 ;
-    for ( a = 0 ; a <= 6 ; a++)
+    int i , j ;
+    memset(f,0,sizeof(f));
+    f[1] = 1;
+    f[2] = 2;
+    for (i = 3 ; i <= 6 ;i++)
     {
-        for ( b = 0 ; b <= 6 ; b++)
+        for ( j = 1 ; j < i ; j++)
         {
-            for ( c = 0 ; c <= 6 ; c++)
-            {
-                for ( d = 0 ; d <= 6 ; d++)
-                {
-                    for ( e = 0 ; e <= 6 ; e++)
-                    {
-                        for ( f = 0 ; f <= 6 ; f++)
-                        {
-                            if ( a+b+c+d+e+f == 6)
-                            {
-                                result += 1;
-                            }
-                        }
-                    }
-                }
-            }
+            f[i] += f[j];
         }
+        f[i]++;
     }
-    printf("%d",result);
+    printf("%d\n",f[6]);
     system("pause");
     return 0;
 }
