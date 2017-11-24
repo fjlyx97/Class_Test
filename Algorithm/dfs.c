@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-int num[10] , book[10] , total = 0;
-void dfs(int step)
+void dfs(int step , int n , int* book , int* num , int* total)
 {
-    int i;
-    if (step == 10)
+    if (step == n+1)
     {
+        //printf("%d%d%d+%d%d%d=%d%d%d\n",num[1],num[2],num[3],num[4],num[5],num[6],num[7],num[8],num[9]);
         if (num[1]*100+num[2]*10+num[3] + num[4]*100+num[5]*10+num[6] == num[7]*100+num[8]*10+num[9])
         {
-            total++;
+            (*total)++;
             printf("%d%d%d+%d%d%d=%d%d%d\n",num[1],num[2],num[3],num[4],num[5],num[6],num[7],num[8],num[9]);
         }
         return;
     }
-    for ( i = 1 ; i <= 9 ; i++)
+    int i = 0;
+    for (i = 1 ; i <= n ; i++ )
     {
-        if (book[i] == 0)
+        if ( book[i] == 0 )
         {
             num[step] = i;
             book[i] = 1;
-            dfs(step+1);
+            dfs(step+1,n,book,num,total);
             book[i] = 0;
         }
     }
@@ -27,9 +27,11 @@ void dfs(int step)
 }
 int main(void)
 {
-    dfs(1);
-    printf("total=%d",total/2);
-
+    int num[10];
+    int book[10] = {0};
+    int total = 0;
+    dfs(1,9,book,num,&total);
+    printf("total is %d.",total);
     system("pause");
     return 0;
 }

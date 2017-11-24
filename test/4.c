@@ -1,25 +1,21 @@
-#include <stdio.h>
+#include "stdio.h"
 #include <stdlib.h>
-int main(void)
+int main()
 {
-	int x;
-	scanf("%d",&x);
-	int i;
-	int result = 0;
-	for (i = 1 ; i < x ; i++)
+	int m,n,i,b,a;
+	int j = 0;
+	scanf("%d",&i);
+	for(a=1;a<=1000;a++)
 	{
-		if ( x % i == 0)
+		if ( j == i)
 		{
-			result += i;
+			break;
 		}
-	}
-	if ( result == x)
-	{
-		printf("yes");
-	}
-	else
-	{
-		printf("no");
+		if((a+3)%5==0&&(a-3)%6==0)
+		{
+			printf("%d\n",a);
+			j++;
+		}
 	}
 	system("pause");
 	return 0;
