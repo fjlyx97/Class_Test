@@ -1,35 +1,20 @@
-#include "stdio.h"
+#include <stdio.h>
 #include <stdlib.h>
 int main(void)
 {
-    int N;
-    int S;
-    int arr[100];
-    scanf("%d %d",&N,&S);
-    int a,b,c;
-    c=0;
-    for(a=1;a<=N;a++)
-    {
-        for(b=1;b<=N;b++)
-        {
-
-            if(a*b==S&&a+b<=N)
-            {
-                arr[c]=a+b;
-                c++;
-            }
-        }
-    }
-    int i,j;
-    for(i=0;i<c-1;i++)
-    {
-        if(arr[0]>arr[i])
-        {
-            arr[0]=arr[i];
-        }
-    }
-    out:
-    printf("%d",(N-arr[0])/2);
+	long long a , b , c;
+	scanf("%I64d %I64d %I63d",&a,&b,&c);
+	long long ans = 1;
+	while ( b > 0 )
+	{
+		if ( b % 2 == 1)
+		{
+			ans = (ans * a) % c;
+		}
+		b /= 2;
+		a = ( a * a) % c;
+	}
+	printf("%I64d",ans);
 	system("pause");
-	return 0;
+    return 0;
 }
