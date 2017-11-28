@@ -2,7 +2,8 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "limits": "c"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
