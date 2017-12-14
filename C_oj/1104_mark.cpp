@@ -47,6 +47,5 @@ int main()
 
     int result = dp(0,0,N,num);
     cout << result << endl;
-    system("pause");
     return 0;
 }
