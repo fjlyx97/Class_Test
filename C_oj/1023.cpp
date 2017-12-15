@@ -26,7 +26,6 @@ int main()
         cout << num[i] << " ";
     }
     cout << endl;
-
     system("pause");
     return 0;
 }
