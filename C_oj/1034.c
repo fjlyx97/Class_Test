@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 int main(void)
 {
 	int m;
@@ -12,6 +13,6 @@ int main(void)
 	
 	printf("%.6f",result);
 
-
+	system("pause");
 	return 0;
 }
