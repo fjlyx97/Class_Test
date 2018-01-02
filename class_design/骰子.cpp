@@ -6,9 +6,9 @@
 
 using namespace std;
 
-void gotoxy(HANDLE hOut , int x , int y);//ÒÆ¶¯¹â±ê
-void hello();   //¿ªÊ¼½çÃæ
-void printMap(HANDLE hOut,char status);   //»æÖÆµØÍ¼
+void gotoxy(HANDLE hOut , int x , int y);//ç§»åŠ¨å…‰æ ‡
+void hello();   //å¼€å§‹ç•Œé¢
+void printMap(HANDLE hOut,char status);   //ç»˜åˆ¶åœ°å›¾
 
 class dice
 {
@@ -26,16 +26,16 @@ void deleteDice(HANDLE hOut , dice* mydice);
 
 int main()
 {
-    /*³õÊ¼»¯*/
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);//¶¨ÒåÏÔÊ¾Æ÷¾ä±ú±äÁ¿
-    CONSOLE_CURSOR_INFO cci;    //È¡Ïû¹â±ê
+    /*åˆå§‹åŒ–*/
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);//å®šä¹‰æ˜¾ç¤ºå™¨å¥æŸ„å˜é‡
+    CONSOLE_CURSOR_INFO cci;    //å–æ¶ˆå…‰æ ‡
     GetConsoleCursorInfo(hOut,&cci);
     cci.bVisible = FALSE;
     SetConsoleCursorInfo(hOut,&cci);
 
-    hello();//»æÖÆ»¶Ó­½çÃæ
+    hello();//ç»˜åˆ¶æ¬¢è¿ç•Œé¢
     system("cls");
-    /* ³õÊ¼»¯±äÁ¿ */
+    /* åˆå§‹åŒ–å˜é‡ */
     srand(time(0));
     char status;
     int i = 0;
@@ -51,16 +51,16 @@ int main()
         {
             status = 'B';
         }
-        printMap(hOut,status);//»æÖÆµØÍ¼
-        getche();   //µÈ´ıÊäÈë
+        printMap(hOut,status);//ç»˜åˆ¶åœ°å›¾
+        getche();   //ç­‰å¾…è¾“å…¥
         system("cls");
-        printMap(hOut,status);//·ÀÖ¹ÇåÆÁ
+        printMap(hOut,status);//é˜²æ­¢æ¸…å±
 
-        dice* mydice = new dice;    //³õÊ¼»¯³ÉÔ±
-        dice* mydice1 = new dice;    //³õÊ¼»¯³ÉÔ±
-        mydice->init_num();         //³õÊ¼»¯Êı×Ö
-        mydice1->init_num();         //³õÊ¼»¯Êı×Ö
-        loop_value = 0;             //µ¯Ìø´ÎÊı
+        dice* mydice = new dice;    //åˆå§‹åŒ–æˆå‘˜
+        dice* mydice1 = new dice;    //åˆå§‹åŒ–æˆå‘˜
+        mydice->init_num();         //åˆå§‹åŒ–æ•°å­—
+        mydice1->init_num();         //åˆå§‹åŒ–æ•°å­—
+        loop_value = 0;             //å¼¹è·³æ¬¡æ•°
         while (true)
         {
             printDice(hOut,mydice);
@@ -69,15 +69,15 @@ int main()
             deleteDice(hOut,mydice1);
 
 
-            mydice->y += mydice->y_speed;   //ÏÂÂäËÙ¶È
-            mydice->x += mydice->x_speed;   //ºáÏòÆ½ÒÆËÙ¶È
-            mydice1->y += mydice1->y_speed;   //ÏÂÂäËÙ¶È
-            mydice1->x += mydice1->x_speed;   //ºáÏòÆ½ÒÆËÙ¶È
+            mydice->y += mydice->y_speed;   //ä¸‹è½é€Ÿåº¦
+            mydice->x += mydice->x_speed;   //æ¨ªå‘å¹³ç§»é€Ÿåº¦
+            mydice1->y += mydice1->y_speed;   //ä¸‹è½é€Ÿåº¦
+            mydice1->x += mydice1->x_speed;   //æ¨ªå‘å¹³ç§»é€Ÿåº¦
 
-            mydice->y_speed += 1;           //ÏÂÂä¼ÓËÙ
-            mydice->x_speed += 1;           //ºáÏò¼ÓËÙ
-            mydice1->y_speed += 1;           //ÏÂÂä¼ÓËÙ
-            mydice1->x_speed += 1;           //ºáÏò¼ÓËÙ
+            mydice->y_speed += 1;           //ä¸‹è½åŠ é€Ÿ
+            mydice->x_speed += 1;           //æ¨ªå‘åŠ é€Ÿ
+            mydice1->y_speed += 1;           //ä¸‹è½åŠ é€Ÿ
+            mydice1->x_speed += 1;           //æ¨ªå‘åŠ é€Ÿ
 
             if (mydice->y > 24)
             {
@@ -116,7 +116,7 @@ int main()
                 mydice1->y = 24;
                 break;
             }
-            loop_value++;       //Ñ­»·Ôö¼Ó
+            loop_value++;       //å¾ªç¯å¢åŠ 
         }
         printDice(hOut,mydice);
         printDice(hOut,mydice1);
@@ -129,23 +129,23 @@ int main()
     system("pause");
     return 0;
 }
-/*»æÖÆÇøÓò*/
+/*ç»˜åˆ¶åŒºåŸŸ*/
 void gotoxy(HANDLE hOut, int x, int y)
 {
       COORD pos;
-      pos.X = x;             //ºá×ø±ê
-      pos.Y = y;            //×İ×ø±ê
+      pos.X = x;             //æ¨ªåæ ‡
+      pos.Y = y;            //çºµåæ ‡
       SetConsoleCursorPosition(hOut, pos);
 }
-void hello() //¿ªÊ¼½çÃæ
+void hello() //å¼€å§‹ç•Œé¢
 {
     printf("                         **********************\n");
     printf("                         *                    *\n");
     printf("                         *                    *\n");
     printf("                         *                    *\n");
-    printf("                         *       Í¶÷»×Ó       *\n");
+    printf("                         *       æŠ•éª°å­       *\n");
     printf("                         *                    *\n");
-    printf("                         * Çë°´ÈÎÒâ¼ü¿ªÊ¼ÓÎÏ· *\n");
+    printf("                         * è¯·æŒ‰ä»»æ„é”®å¼€å§‹æ¸¸æˆ *\n");
     printf("                         *                    *\n");
     printf("                         *                    *\n");
     printf("                         *                    *\n");
@@ -154,9 +154,9 @@ void hello() //¿ªÊ¼½çÃæ
     getche();
     return;
 }
-void printMap(HANDLE hOut,char status) //»æÖÆµØÍ¼
+void printMap(HANDLE hOut,char status) //ç»˜åˆ¶åœ°å›¾
 {
-    //×İ20£¬ºá30
+    //çºµ20ï¼Œæ¨ª30
     for (int i = 5 ; i < 26 ; i++)
     {
         gotoxy(hOut,0,i);
@@ -170,12 +170,12 @@ void printMap(HANDLE hOut,char status) //»æÖÆµØÍ¼
         printf("%c",4);
     }
     printf("\n");
-    printf("Íæ¼Ò%c°´ÈÎÒâ¼üÍ¶÷»×Ó",status);
+    printf("ç©å®¶%cæŒ‰ä»»æ„é”®æŠ•éª°å­",status);
     return;
 }
 
-/*÷»×Ó¹¦ÄÜÇø*/
-void dice::init_num()   //³õÊ¼»¯Êı¾İ
+/*éª°å­åŠŸèƒ½åŒº*/
+void dice::init_num()   //åˆå§‹åŒ–æ•°æ®
 {
     this->num = rand() % 6 + 1;
     this->x = rand() % 30 + 1;
