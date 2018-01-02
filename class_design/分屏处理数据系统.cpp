@@ -31,8 +31,8 @@ int main()
             printf("\n");
         }
         printf("\n\n\n\n");
-        printf("当前为第%d页\n\n",i);
-        printf("其中最大值为:%d,最小值为:%d,平均值为:%.2f\n\n",max,min,ave/100);
+        printf("��ǰΪ��%dҳ\n\n",i);
+        printf("�������ֵΪ:%d,��СֵΪ:%d,ƽ��ֵΪ:%.2f\n\n",max,min,ave/100);
         printf("press any key to continue...");
         getche();
     }

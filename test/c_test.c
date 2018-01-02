@@ -1,29 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 int main()
-{
-	int n,x[100],i,a[6]={100,50,10,5,2,1};
-	int j,s;
-	s=0;
-	scanf("%d",&n);
-	for(i=0;i<n;i++)
-		scanf("%d",&x[i]);
-	for(i=0;i<n;i++)
+{	
+	int t,i,j,max,c,n,d,h;
+	char m;
+	int b[100]={0};
+	char a[1000][100];
+	scanf("%d",&t);
+	getchar();
+	n=1;
+	max=0;
+	for(i=0;i<t;i++)
 	{
-		for(j=0;j<6;j++)
+		gets(a[i]);
+		for(j=0;a[i][j]!='\0';j++)
 		{
-			if(a[j]<=x[i])
+			m=a[i][j];
+			for(c=j+1;a[i][c]!='\0';c++)
 			{
-				x[i]=x[i]-a[j];
-				s++;
-				if(x[i]==0)
-					break;
-				else if(x[i]>0)
-					continue;
+				if(a[i][c]==m)
+				n++;
+			}
+			b[j]=n;
+		}	
+	}
+	for(i=0;i<t;i++)
+	{
+		for(d=0;d<=j;d++)
+		{
+			if(max<b[d])
+			{
+				h=d;
 			}
 		}
+		printf("%c",a[i][h]);
 	}
-	printf("%d",s);
 	system("pause");
 	return 0;
 }
