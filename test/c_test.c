@@ -1,40 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int main()
-{	
-	int t,i,j,max,c,n,d,h;
-	char m;
-	int b[100]={0};
-	char a[1000][100];
-	scanf("%d",&t);
-	getchar();
-	n=1;
-	max=0;
-	for(i=0;i<t;i++)
+{
+	int N;
+	int num[50];
+	int i;
+	int M;
+	int a;
+	scanf("%d",&N);
+	for (i = 0 ; i < N ; i++)
 	{
-		gets(a[i]);
-		for(j=0;a[i][j]!='\0';j++)
-		{
-			m=a[i][j];
-			for(c=j+1;a[i][c]!='\0';c++)
-			{
-				if(a[i][c]==m)
-				n++;
-			}
-			b[j]=n;
-		}	
+		scanf("%d",&num[i]);
 	}
-	for(i=0;i<t;i++)
+	scanf("%d",&M);
+	scanf("%d",&a);
+	for (i = 0 ; i < N ; i++)
 	{
-		for(d=0;d<=j;d++)
+		if ( i == M-1 )
 		{
-			if(max<b[d])
-			{
-				h=d;
-			}
+			printf("%d ",a);
 		}
-		printf("%c",a[i][h]);
+		printf("%d ",num[i]);
 	}
+
 	system("pause");
 	return 0;
 }
