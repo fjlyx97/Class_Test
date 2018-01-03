@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include <ctime>
 #include <cstdlib>
 #include <windows.h>
@@ -70,6 +71,8 @@ void printMap(HANDLE hOut,char (*map)[81],int* out_y);
 void gotoxy(HANDLE hOut, int x, int y); //移动光标
 void printPos(HANDLE hOut , people** mypeople);
 void printWin(HANDLE hOut);
+bool judgePepBfs(people mypeople , char (*map)[81] , int out_y , HANDLE hOut);
+bool judgeBoxBfs(box mybox , char (*map)[81] , int out_y , HANDLE hOut);
 
 int main()
 {
@@ -84,6 +87,7 @@ int main()
     /*初始化变量*/
     srand(time(0));
     char map[31][81];
+    memset(map,0,sizeof(map));
     char dir;
     int out_y;
 
@@ -98,12 +102,24 @@ int main()
         /*小人初始化*/
         people* mypeople = new people;  //初始化小人
         mypeople->init_pos();   //小人初始化位置
-        mypeople->print_pos(hOut);  //绘制小人
 
         /*箱子初始化*/
         box* mybox = new box;
         mybox->init_pos();
+
+        /*利用BFS判断地图是否有解*/
+        while (!judgePepBfs(*mypeople,map,out_y,hOut) && !judgeBoxBfs(*mybox,map,out_y,hOut))
+        {
+            system("cls");
+            memset(map,0,sizeof(map));
+            printMap(hOut,map,&out_y); //绘制地图
+            mypeople->init_pos();   //小人初始化位置
+            mybox->init_pos();
+        }
+
+        mypeople->print_pos(hOut);  //绘制小人
         mybox->print_pos(hOut);  //绘制箱子
+
 
         /* 游戏逻辑部分 */
         while (true)
@@ -164,18 +180,19 @@ void hello(HANDLE hOut) //开始界面
     {
         gotoxy(hOut,j,8);
         printf("%c",16);
-        Sleep(300);
+        Sleep(200);
         j++;
     }
     return;
 }
 void printMap(HANDLE hOut , char (*map)[81] , int* out_y)
 {
+    /* 0-30 0-80 */
     int i , j;
     system("color A");                  //设置障碍物颜色
     for (i = 1 ; i <= 250 ; i++)        //生成障碍物
     {
-        map[rand()%30+1][rand()%80+1] = 5;
+        map[rand()%29+1][rand()%79+1] = 5;
     }
 
     /*绘制地图边框*/
@@ -215,6 +232,28 @@ void printMap(HANDLE hOut , char (*map)[81] , int* out_y)
     map[(*out_y)-1][80] = ' ';
     map[*out_y][80] = ' ';
     map[(*out_y)+1][80] = ' ';
+
+    /*测试BFS*/
+    //gotoxy(hOut,0,82);
+    //for (int i = 0 ; i < 31 ; i++)
+    //{
+    //    for ( int j = 0 ; j < 81 ; j++)
+    //    {
+    //        cout << map[i][j];
+    //    }
+    //    cout << endl;
+    //}
+    //map[(*out_y)-1][79] = 5;
+    //map[*out_y][79] = 5;
+    //map[(*out_y)+1][79] = 5;
+    //gotoxy(hOut,79,(*out_y)-1);
+    //printf("%c",map[(*out_y)-1][79]);
+    //gotoxy(hOut,79,(*out_y));
+    //printf("%c",map[*out_y][79]);
+    //gotoxy(hOut,79,(*out_y)+1);
+    //printf("%c",map[(*out_y)+1][79]);
+    /*测试BFS*/
+
     gotoxy(hOut,80,(*out_y)-1);
     printf(" ");
     gotoxy(hOut,80,*out_y);
@@ -254,11 +293,84 @@ void gotoxy(HANDLE hOut, int x, int y)  //移动光标
       SetConsoleCursorPosition(hOut, pos);
       return;
 }
+bool judgePepBfs(people mypeople , char (*map)[81], int out_y , HANDLE hOut)      //利用BFS算法判断当前地图是否有解
+{
+    int next[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};   //小人移动方法
+    int book[31][81];                         //记录位置
+    memset(book,0,sizeof(book));
 
+    queue<people> myqueue;                          //生成队列
+    book[mypeople.y][mypeople.x] = 1;
+    myqueue.push(mypeople);
+
+    int tempx , tempy;
+    //mypeople.print_pos(hOut);     //测试
+
+    while (!myqueue.empty())
+    {
+        for ( int i = 0 ; i < 4 ; i++)
+        {
+            tempx = myqueue.front().x + next[i][1];
+            tempy = myqueue.front().y + next[i][0];
+            if (book[tempy][tempx] == 0 && map[tempy][tempx] == '\0')
+            {
+                book[tempy][tempx] = 1;
+                people tempPeople;
+                tempPeople.x = tempx;
+                tempPeople.y = tempy;
+                //tempPeople.print_pos(hOut);       //测试
+                myqueue.push(tempPeople);
+            }
+            if (tempx == 80 && (tempy == out_y || tempy == out_y-1 || tempy == out_y+1))
+            {
+                return true;
+            }
+        }
+        myqueue.pop();
+    }
+    return false;
+}
+bool judgeBoxBfs(box mybox , char (*map)[81] , int out_y , HANDLE hOut)
+{
+    int next[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};   //小人移动方法
+    int book[31][81];                         //记录位置
+    memset(book,0,sizeof(book));
+
+    queue<box> myqueue;                          //生成队列
+    book[mybox.y][mybox.x] = 1;
+    myqueue.push(mybox);
+
+    int tempx , tempy;
+    //mybox.print_pos(hOut);     //测试
+
+    while (!myqueue.empty())
+    {
+        for ( int i = 0 ; i < 4 ; i++)
+        {
+            tempx = myqueue.front().x + next[i][1];
+            tempy = myqueue.front().y + next[i][0];
+            if (book[tempy][tempx] == 0 && map[tempy][tempx] == '\0')
+            {
+                book[tempy][tempx] = 1;
+                box tempbox;
+                tempbox.x = tempx;
+                tempbox.y = tempy;
+                //tempbox.print_pos(hOut);       //测试
+                myqueue.push(tempbox);
+            }
+            if (tempx == 80 && (tempy == out_y || tempy == out_y-1 || tempy == out_y+1))
+            {
+                return true;
+            }
+        }
+        myqueue.pop();
+    }
+    return false;
+}
 /*小人的参数*/
 void people::init_pos()
 {
-    this->y = rand() % 30 + 1;
+    this->y = rand() % 29 + 1;
     this->x = rand() % 79 + 1;
     this->step = 0;
     return;
