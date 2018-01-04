@@ -49,12 +49,14 @@ public:
     int return_len();//返回长度
     void add_len();//增加长度
     friend void printsnake(HANDLE hOut,snake* snake_head); //画蛇
+    friend void Dprintsnake(HANDLE hOut,snake* snake_head); //画蛇
     friend void movesnake(snake* snake_head , char dir);//移动蛇
     friend snake* new_snake(snake* snake_end);//生成新的蛇
     friend void delete_snake(snake* snake_head);//删除蛇
     friend bool snake_cash(snake* snake_head);        //蛇是否撞到自己
 };
 void printsnake(HANDLE hOut,snake* snake_head); //画蛇
+void Dprintsnake(HANDLE hOut,snake* snake_head); //画蛇
 void movesnake(snake* snake_head , char dir);   //蛇的移动
 snake* new_snake(snake* snake_end);//生成新的蛇
 void delete_snake(snake* snake_head);//删除蛇
@@ -90,6 +92,7 @@ int main()
     char dir;
     char temp_dir;
     char status;
+    int difficult;    //难度设置
     /* 初始化区域 */
     while (true)
     {
@@ -101,15 +104,17 @@ int main()
         dir = '\0';
         temp_dir = '\0';
         status = '\0';
+        difficult = 150;
 
         /*初始化食物*/
         food* myfood = new food;
         myfood->show_food();
 
+        system("cls");
         while(true)
         {
             /*清屏*/
-            system("cls");
+            Dprintsnake(hOut,snake_head);
 
             /*读取键盘输入*/
             if (kbhit())
@@ -148,6 +153,7 @@ int main()
             //蛇撞墙
             if ((snake_head->return_x() == 0) || (snake_head->return_x() == 55) || (snake_head->return_y() == 0) || (snake_head->return_y() == 27) || snake_cash(snake_head))
             {
+                system("cls");
                 over();
                 status = getche();
                 if (status == '\r')
@@ -168,7 +174,8 @@ int main()
             myfood->print_food(hOut);
 
             printMap(hOut); //防闪烁
-            Sleep(200);
+            /*难度设置*/
+            Sleep(difficult);
         }
         /* 清空内存 */
         delete_snake(snake_head);
@@ -250,6 +257,17 @@ void printsnake(HANDLE hOut,snake* snake_head)
     {
         gotoxy(hOut,snake_temp->snake_x,snake_temp->snake_y);
         printf("%c",1);
+        snake_temp = snake_temp->next;
+    }
+    return;
+}
+void Dprintsnake(HANDLE hOut,snake* snake_head) //删除蛇
+{
+    snake* snake_temp = snake_head;
+    while (snake_temp != NULL)
+    {
+        gotoxy(hOut,snake_temp->snake_x,snake_temp->snake_y);
+        printf(" ");
         snake_temp = snake_temp->next;
     }
     return;

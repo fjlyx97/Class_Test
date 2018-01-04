@@ -41,7 +41,6 @@ public:
 };
 
 
-
 /* 定义人物类 */
 class people
 {
@@ -91,7 +90,6 @@ int main()
     char dir;
     int out_y;
 
-
     while (true)
     {   
         /*初始化区域*/
@@ -120,7 +118,6 @@ int main()
         mypeople->print_pos(hOut);  //绘制小人
         mybox->print_pos(hOut);  //绘制箱子
 
-
         /* 游戏逻辑部分 */
         while (true)
         {
@@ -138,7 +135,7 @@ int main()
             dir = getch();
             mypeople->delete_pos(hOut);
             mybox->delete_pos(hOut);
-            mypeople->move_pos(dir,map,&mybox);
+            mypeople->move_pos(dir,map,&mybox);     //小人移动
             
             /*绘制小人 箱子 位置*/
             mypeople->print_pos(hOut);
@@ -332,6 +329,24 @@ bool judgePepBfs(people mypeople , char (*map)[81], int out_y , HANDLE hOut)    
 }
 bool judgeBoxBfs(box mybox , char (*map)[81] , int out_y , HANDLE hOut)
 {
+    /*初始判断*/
+    if (map[mybox.x+1][mybox.y] == '#' || map[mybox.x+1][mybox.y] == 5)
+    {
+        return false;
+    }
+    else if (map[mybox.x-1][mybox.y] == '#' || map[mybox.x-1][mybox.y] == 5)
+    {
+        return false;
+    }
+    else if (map[mybox.x][mybox.y+1] == '#' || map[mybox.x][mybox.y+1] == 5)
+    {
+        return false;
+    }
+    else if (map[mybox.x][mybox.y-1] == '#' || map[mybox.x][mybox.y-1] == 5)
+    {
+        return false;
+    }
+
     int next[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};   //小人移动方法
     int book[31][81];                         //记录位置
     memset(book,0,sizeof(book));
@@ -519,8 +534,8 @@ void box::print_pos(HANDLE hOut)     //绘制箱子
 }
 void box::init_pos()     //初始化箱子位置
 {
-    this->y = rand() % 30 + 1;
-    this->x = rand() % 80 + 1;
+    this->y = rand() % 29 + 1;
+    this->x = rand() % 79 + 1;
     return;
 }
 void box::delete_pos(HANDLE hOut)
