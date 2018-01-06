@@ -65,37 +65,37 @@ public:
     void move_pos(char dir , char (*map)[81] , box** mybox);
 };
 
-void hello(HANDLE hOut , int* difficult);   //开始界面
-void printMap(HANDLE hOut,char (*map)[81],int* out_y,int difficult);
+void hello(HANDLE hOut , int* difficult);   //绘制开始界面
+void printMap(HANDLE hOut,char (*map)[81],int* out_y,int difficult);    //绘制地图
 void gotoxy(HANDLE hOut, int x, int y); //移动光标
-void printPos(HANDLE hOut , people** mypeople);
-void printWin(HANDLE hOut);
-bool judgePepBfs(people mypeople , char (*map)[81] , int out_y , HANDLE hOut);
-bool judgeBoxBfs(box mybox , char (*map)[81] , int out_y , HANDLE hOut);
+void printPos(HANDLE hOut , people** mypeople);     //绘制人物位置
+void printWin(HANDLE hOut);             //绘制胜利界面
+bool judgePepBfs(people mypeople , char (*map)[81] , int out_y , HANDLE hOut);  //人物判断是否有解
+bool judgeBoxBfs(box mybox , char (*map)[81] , int out_y , HANDLE hOut);        //箱子判断是否有解
 
 int main()
 {
     /* 取消光标 */
 	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);//定义显示器句柄变量
     CONSOLE_CURSOR_INFO cci;
-    GetConsoleCursorInfo(hOut,&cci);
-    cci.bVisible = FALSE;
-    SetConsoleCursorInfo(hOut,&cci);
+    GetConsoleCursorInfo(hOut,&cci);            //获得控制台句柄
+    cci.bVisible = FALSE;                       //关闭光标
+    SetConsoleCursorInfo(hOut,&cci);            //设置光标
     /* 取消光标 */
 
     /*初始化变量*/
     srand(time(0));
-    char map[31][81];
-    memset(map,0,sizeof(map));
-    char dir;
-    int out_y;
-    int difficult = 0;
+    char map[31][81];           //地图变量
+    memset(map,0,sizeof(map));  //设置地图为空
+    char dir;                   //移动的方向
+    int out_y;                  //出口纵坐标
+    int difficult = 0;          //难度设定
 
     while (true)
     {   
         /*初始化区域*/
-        hello(hOut,&difficult);
-        system("cls");
+        hello(hOut,&difficult);         //绘制欢迎界面
+        system("cls");                  //清屏函数
         printMap(hOut,map,&out_y,difficult); //绘制地图
 
         /*小人初始化*/
@@ -104,13 +104,14 @@ int main()
 
         /*箱子初始化*/
         box* mybox = new box;
-        mybox->init_pos();
+        mybox->init_pos();      //箱子初始化位置
 
         /*利用BFS判断地图是否有解*/
-        int flag = 1;
+        int flag = 1;       //作为接下来判断地图是否有解的标志。
         while (true)
         {
             flag = 1;
+            /*如果无解重新绘制地图*/
             if (judgeBoxBfs(*mybox,map,out_y,hOut) == false || judgePepBfs(*mypeople,map,out_y,hOut) == false)
             {
                 system("cls");
@@ -131,25 +132,25 @@ int main()
         /* 游戏逻辑部分 */
         while (true)
         {
-            printPos(hOut,&mypeople);
+            printPos(hOut,&mypeople);   //每次循环绘制小人位置
             /*判断是否胜利*/
             if (mybox->if_win(out_y))
             {
                 printWin(hOut);        //绘制胜利界面
                 getch();
-                delete mypeople;
+                delete mypeople;        //防止内存泄漏
                 delete mybox;
                 return 0;
             }
             /*判断方向*/
             dir = getch();
-            mypeople->delete_pos(hOut);
+            mypeople->delete_pos(hOut);     //删除当前位置以便重新绘制
             mybox->delete_pos(hOut);
             mypeople->move_pos(dir,map,&mybox);     //小人移动
             
             /*绘制小人 箱子 位置*/
-            mypeople->print_pos(hOut);
-            mybox->print_pos(hOut);
+            mypeople->print_pos(hOut);      //重新绘制位置
+            mybox->print_pos(hOut);         //重新绘制位置
         }
     }
 }

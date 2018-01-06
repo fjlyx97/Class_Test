@@ -10,9 +10,6 @@ int main(void)
 	{
 		result = result + 1.0 / (2*i+1); 
 	}
-	
 	printf("%.6f",result);
-
-	system("pause");
 	return 0;
 }

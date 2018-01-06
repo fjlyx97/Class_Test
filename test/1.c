@@ -113,17 +113,48 @@ int main()
         {
             printf("输入1判断集合是否为交集关系");
             scanf("%d",&x);
-            printf("\n");
+            if(x==1)//实现两组的交运算
+            {
+                for(i=0;i<len;i++)
+                    for(j=0;j<hen;j++)
+                    {
+                        if(str2[j]==str1[i])
+                        {
+                            a[a1]=str1[i];
+                            a1++;
+                            a2=a1;
+                        }
+                    }
+            }
+            //for(i=0;i<a2;i++)
+            //{
+            //    printf("%c",a[i]);
+            //}
+            //printf("\n");
             if(a2!=0)
             {
-                printf("两集合是交集关系");
+                printf("两集合是交集关系\n");
             }
             printf("输入2判断集合是否为并集关系");
             scanf("%d",&x);
-            printf("\n");
+            if(x==2)//实现两组的并运算
+            {
+                t=0;
+                for(b1=0;b1<len;b1++)	
+                {
+                    for(b2=0;b2<hen;b2++)
+                    {
+                        if(str2[b2]==str1[b1])
+                        {
+                            b[t]=str2[b2];
+                            t++;
+                            b3=t;
+                        }
+                    }
+                }
+            }
             if(t!=0)
             {
-            
                 printf("两集合是并集关系");
             }
         }

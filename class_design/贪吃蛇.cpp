@@ -89,9 +89,9 @@ int main()
     /* 初始化区域 */
     srand(time(0));
     hello();
-    char dir;
-    char temp_dir;
-    char status;
+    char dir;               //移动方向
+    char temp_dir;          //接受按键的方向
+    char status;            //判断游戏结束后是否需要重新开始
     int difficult;    //难度设置
     /* 初始化区域 */
     while (true)

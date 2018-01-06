@@ -40,9 +40,9 @@ void transX2X(char num1[],int n, int m, char num2[])//转换进制
         num /= m;
         j++;
     }
+    cout << "转换出的答案为：";
     for (int k = j-1 ; k >= 0 ; k--)
     {
-        cout << "转换出的答案为：";
         cout << num2[k];   
     }
     return;

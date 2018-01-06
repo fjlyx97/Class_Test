@@ -26,14 +26,12 @@ int main(void)
             if ( result == 1)
             {
                 printf("YES");
-                system("pause");
                 return 0;
             }
             j++;
         }
     }
     printf("NO");
-    system("pause");
     return 0;
 }
 int judge(float x1, float y1 , float x2 , float y2 , float x3 , float y3 , float x4 , float y4)
