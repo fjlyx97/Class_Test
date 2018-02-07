@@ -12,5 +12,6 @@
       },
       "[c]": {
           "editor.quickSuggestions": true
-      }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
