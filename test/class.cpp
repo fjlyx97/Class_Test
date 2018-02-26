@@ -1,45 +1,31 @@
 #include <iostream>
-#include <string>
 using namespace std;
 class people
 {
-protected:
+private:
     int age;
-    string name;
-    
 public:
-    people(int pep_age , string pep_name)
+    people() : age(10) {};
+    void print(int age)
     {
-        this->age = pep_age;
-        this->name = pep_name;
+        cout << "Hello people" << age << endl;
     }
-    virtual void print()
-    {
-        cout << this->age << endl;
-        cout << this->name << endl;
-    }
+
 };
 
-class xiaoming : public people
+class A : public people
 {
 public:
-    xiaoming(int pep_age , string pep_name):people(pep_age , pep_name)
-    {
-
-    }
-    void print()
-    {
-        cout << this->age << endl;
-        cout << this->name << endl;
-    }
+    
 };
+
 
 int main()
 {
-    people* mypep = new people(18,"lyx");
-    mypep->print();
-    xiaoming* myxiaoming = new xiaoming(19,"hel");
-    myxiaoming->print();
+    people a;
+    a.print(10);
+    A b;
+    b.print(20);
     system("pause");
     return 0;
 }
