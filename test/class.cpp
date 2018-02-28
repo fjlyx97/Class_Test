@@ -1,58 +1,54 @@
-/*
-solution:
-    è¡Œçš„æ‘†æ”¾ä¸åˆ—çš„æ‹œè®¿æ˜¯æ— å…³çš„ï¼Œæ‰€ä»¥å¯ä»¥å°†ä¸¤ä¸ªåˆ†å¼€ã€‚è¿™æ ·å°±æˆäº†ä¸¤ä¸ªç®€å•çš„ä¸€ç»´æ•°ç»„é—®é¢˜ã€‚
-    å½“åˆåšè¿™åˆ°é¢˜ç›®æ—¶å€™æƒ³è¿‡ç”¨nçš‡åçš„æ–¹æ³•æ¥åšã€‚ä½†è²Œä¼¼æœ‰é™·é˜±ï¼Œæš‚æ—¶æƒ³ä¸èµ·æ¥æ˜¯ä»€ä¹ˆé™·é˜±äº†ã€‚
-    ç­‰æƒ³èµ·æ¥ååœ¨è¡¥å……å§ã€‚
-
-note:
-    é—®é¢˜åˆ†è§£
-
-date:
-    2016-5-20
-*/
+#include <WinSock2.h>
 #include <iostream>
-#include <cstdio>
-#include <cstring>
-
-using namespace std;
-const int maxn = 5000 + 5;
-
-int n, visRow[maxn], visCol[maxn];
-int xl[maxn], yl[maxn], xr[maxn], yr[maxn];
-
-void setBoard(int i) {
-    for(int x = xl[i]; x <= xr[i]; x++) {
-        //cout << x << endl;
-        if(!visRow[x]) {
-            for(int y = yl[i]; y <= yr[i]; y++) {
-                //cout << y << endl;
-                if(!visCol[y]) {
-                    visCol[y] = 1;  visRow[x] = 1;
-                    printf("%d %d\n", x, y);
-                    return;
-                }
-            }
-        }
-    }
-}
-
-int main()
+//#pragma comment(lib,"ws2_32.lib")
+int main(void)
 {
-    while(~scanf("%d", &n) && n) {
-        memset(visCol, 0, sizeof(visCol));
-        memset(visRow, 0, sizeof(visRow));
+	WORD sockVersion = MAKEWORD(2, 2);		//ÖÆ¶¨°æ±¾ºÅ
+	WSADATA wsaData;
 
-        for(int i = 0; i < n; i++)
-            scanf("%d%d%d%d", &xl[i], &yl[i], &xr[i], &yr[i]);
+	/*³õÊ¼»¯socket¿â*/
+	if (WSAStartup(sockVersion, &wsaData)!=0)
+	{
+		return 0;
+	}
 
-        for(int i = 0; i < n; i++)
-            printf("%d %d %d %d\n", xl[i], yl[i], xr[i], yr[i]);
+	/*´´½¨Ì×½Ó×Ö*/
+	/*µÚÒ»¸ö²ÎÊıÖ¸¶¨IPv4£¬µÚ¶ş¸ö²ÎÊıÖ¸¶¨Á÷Ê½´«Êä£¬ÊÊÓÃtcp£¬µÚÈı¸ö²ÎÊıÖ¸¶¨tcpĞ­Òé£¬ÉèÖÃÎª0½«×Ô¶¯ÅĞ¶Ï*/
+	SOCKET slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-        for(int i = 0; i < n; i++) {    //æŒ‰ç…§çŸ©é˜µé¡ºåºæ”¾ç½®æ£‹å­ï¼Œè®°å½•ä¸‹å·²ç»è¢«å é¢†è¿‡çš„è¡Œå’Œåˆ—
-            setBoard(i);
-        }
-        printf("\n");
-    }
-    system("pause");
-    return 0;
+	sockaddr_in sin;
+	sin.sin_family = AF_INET;	//Ö¸¶¨Ğ­Òé
+	sin.sin_port = htons(6000);	//±ØĞë²ÉÓÃÍøÂçÊı¾İ¸ñÊ½£¬Ê¹ÓÃhtonsÀ´°ü×°
+	sin.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+	/*½øĞĞ°ó¶¨*/
+	if (bind(slisten, (SOCKADDR*)&sin, sizeof(sin)) == SOCKET_ERROR)
+	{
+		std::cout << "bind error ! " << std::endl;
+	}
+
+	/*5ÎªµÈ´ıÁ¬½ÓÊıÄ¿*/
+	if (listen(slisten, 5) == SOCKET_ERROR)
+	{
+		std::cout << "listen error" << std::endl;
+	}
+	
+	/*½ÓÊÜÊı¾İ*/
+	SOCKET sClient;
+	sockaddr_in remoteAddr;
+	char revData[255];
+	int nAddrlen = sizeof(remoteAddr);
+	while (true)
+	{
+		std::cout << "µÈ´ıÁ¬½Ó" << std::endl;
+		sClient = accept(slisten, (SOCKADDR*)&remoteAddr, &nAddrlen);
+		std::cout << "Á¬½Ó³É¹¦" << std::endl;
+		send(sClient, "Á¬½Ó³É¹¦" , sizeof("Á¬½Ó³É¹¦"), 0);
+		int ret = 1;
+		while (ret > 0)
+		{
+			ret = recv(sClient, revData, 255, 0);
+			std::cout << revData << std::endl;
+		}
+	}
+	return 0;
 }

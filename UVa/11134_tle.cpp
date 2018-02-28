@@ -1,13 +1,26 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-int rooks[5001][4] = {0};
+struct rook
+{
+    int xl , xr , yl , yr;
+}rooks[5001];
 int rows[5001] = {0};
 int cols[5001] = {0};
 int res[5001][2] = {0};
 int n;
 int index = 1;
 int flag = 0;
+
+bool cmp(rook a , rook b)
+{
+    if ( (a.yl-a.xl)*(a.yr-a.xr) < (b.yl-b.xl)*(b.yr-b.xr) )
+    {
+        return true;
+    }
+    return false;
+}
+
 void dfs(int step)
 {
     if (flag)
@@ -23,9 +36,9 @@ void dfs(int step)
         flag = 1;
         return;
     }
-    for (int i = rooks[step][0] ; i <= rooks[step][2] ; i++)
+    for (int i = rooks[step].xl ; i <= rooks[step].yl ; i++)
     {
-        for (int j = rooks[step][1] ; j <= rooks[step][3] ; j++)
+        for (int j = rooks[step].xr ; j <= rooks[step].yr ; j++)
         {
             if (rows[i] == 0 && cols[j] == 0)
             {
@@ -59,17 +72,15 @@ int main()
         }
         for (int i = 1 ; i <= n ; i++)
         {
-            cin >> rooks[i][0] >> rooks[i][1] >> rooks[i][2] >> rooks[i][3];
+            cin >> rooks[i].xl >> rooks[i].xr >> rooks[i].yl >> rooks[i].yr;
         }
+        sort(rooks+1,rooks+n+1,cmp);
         dfs(1);
         if (!flag)
         {
             cout << "IMPOSSIBLE" << endl;
         }
     }
-
-
-
     system("pause");
     return 0;
 }

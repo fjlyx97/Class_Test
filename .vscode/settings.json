@@ -5,7 +5,8 @@
         "stdio.h": "c",
         "limits": "c",
         "random": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "algorithm": "cpp"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
