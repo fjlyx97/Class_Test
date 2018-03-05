@@ -19,7 +19,7 @@ int main(void)
 	sockaddr_in sin;
 	sin.sin_family = AF_INET;	//指定协议
 	sin.sin_port = htons(6000);	//必须采用网络数据格式，使用htons来包装
-	sin.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+	sin.sin_addr.S_un.S_addr = inet_addr("192.168.2.117");
 	/*进行绑定*/
 	if (bind(slisten, (SOCKADDR*)&sin, sizeof(sin)) == SOCKET_ERROR)
 	{

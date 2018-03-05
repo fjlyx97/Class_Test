@@ -6,7 +6,8 @@
         "limits": "c",
         "random": "cpp",
         "ostream": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "thread": "cpp"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
