@@ -1,37 +1,28 @@
 #include <iostream>
-#include <thread>
-#include <mutex>
-#include <windows.h>
 using namespace std;
-mutex mymutex;
-int num = 0;
-void fun()
+class CPeople
 {
-    mymutex.lock();
-    for ( int i = 1 ; i <= 10 ; i++)
+private:
+    int age;
+public:
+    CPeople(int n)
     {
-        cout << "hello world" << endl;
-        Sleep(1000);
-        cout << num << endl;
+        age = n;
     }
-    mymutex.unlock();
-}
-
-void fun1()
+    ~CPeople()
+    {
+        cout << this->age << endl;
+    }
+    friend void print(const CPeople& a);
+};
+void print(const CPeople& a)
 {
-    for (int i = 1 ; i < 10 ; i++)
-    {
-        num++;
-        Sleep(1000);
-    }
+    cout << a.age << endl;
 }
 int main()
 {
-    thread thread1 = thread(fun);
-    thread1.detach();
-    thread thread2 = thread(fun1);
-    thread2.detach();
-
+    CPeople xiaoming(10);
+    print(xiaoming);
     system("pause");
     return 0;
 }

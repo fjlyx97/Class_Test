@@ -3,46 +3,46 @@
 //#pragma comment(lib,"ws2_32.lib")
 int main(void)
 {
-	WORD sockVersion = MAKEWORD(2, 2);		//ÖÆ¶¨°æ±¾ºÅ
+	WORD sockVersion = MAKEWORD(2, 2);		//åˆ¶å®šç‰ˆæœ¬å·
 	WSADATA wsaData;
 
-	/*³õÊ¼»¯socket¿â*/
+	/*åˆå§‹åŒ–socketåº“*/
 	if (WSAStartup(sockVersion, &wsaData)!=0)
 	{
 		return 0;
 	}
 
-	/*´´½¨Ì×½Ó×Ö*/
-	/*µÚÒ»¸ö²ÎÊıÖ¸¶¨IPv4£¬µÚ¶ş¸ö²ÎÊıÖ¸¶¨Á÷Ê½´«Êä£¬ÊÊÓÃtcp£¬µÚÈı¸ö²ÎÊıÖ¸¶¨tcpĞ­Òé£¬ÉèÖÃÎª0½«×Ô¶¯ÅĞ¶Ï*/
+	/*åˆ›å»ºå¥—æ¥å­—*/
+	/*ç¬¬ä¸€ä¸ªå‚æ•°æŒ‡å®šIPv4ï¼Œç¬¬äºŒä¸ªå‚æ•°æŒ‡å®šæµå¼ä¼ è¾“ï¼Œé€‚ç”¨tcpï¼Œç¬¬ä¸‰ä¸ªå‚æ•°æŒ‡å®štcpåè®®ï¼Œè®¾ç½®ä¸º0å°†è‡ªåŠ¨åˆ¤æ–­*/
 	SOCKET slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	sockaddr_in sin;
-	sin.sin_family = AF_INET;	//Ö¸¶¨Ğ­Òé
-	sin.sin_port = htons(6000);	//±ØĞë²ÉÓÃÍøÂçÊı¾İ¸ñÊ½£¬Ê¹ÓÃhtonsÀ´°ü×°
+	sin.sin_family = AF_INET;	//æŒ‡å®šåè®®
+	sin.sin_port = htons(6000);	//å¿…é¡»é‡‡ç”¨ç½‘ç»œæ•°æ®æ ¼å¼ï¼Œä½¿ç”¨htonsæ¥åŒ…è£…
 	sin.sin_addr.S_un.S_addr = inet_addr("192.168.2.117");
-	/*½øĞĞ°ó¶¨*/
+	/*è¿›è¡Œç»‘å®š*/
 	if (bind(slisten, (SOCKADDR*)&sin, sizeof(sin)) == SOCKET_ERROR)
 	{
 		std::cout << "bind error ! " << std::endl;
 	}
 
-	/*5ÎªµÈ´ıÁ¬½ÓÊıÄ¿*/
+	/*5ä¸ºç­‰å¾…è¿æ¥æ•°ç›®*/
 	if (listen(slisten, 5) == SOCKET_ERROR)
 	{
 		std::cout << "listen error" << std::endl;
 	}
 	
-	/*½ÓÊÜÊı¾İ*/
+	/*æ¥å—æ•°æ®*/
 	SOCKET sClient;
 	sockaddr_in remoteAddr;
 	char revData[255];
 	int nAddrlen = sizeof(remoteAddr);
 	while (true)
 	{
-		std::cout << "µÈ´ıÁ¬½Ó" << std::endl;
+		std::cout << "ç­‰å¾…è¿æ¥" << std::endl;
 		sClient = accept(slisten, (SOCKADDR*)&remoteAddr, &nAddrlen);
-		std::cout << "Á¬½Ó³É¹¦" << std::endl;
-		send(sClient, "Á¬½Ó³É¹¦" , sizeof("Á¬½Ó³É¹¦"), 0);
+		std::cout << "è¿æ¥æˆåŠŸ" << std::endl;
+		send(sClient, "è¿æ¥æˆåŠŸ" , sizeof("è¿æ¥æˆåŠŸ"), 0);
 		int ret = 1;
 		while (ret > 0)
 		{
