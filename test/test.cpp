@@ -16,7 +16,7 @@ private:
 };
 int& Vector4::operator[](int bi)
 {
-    return v[bi];
+    return v[bi]; //[]重载
 }
 int main()
 {
