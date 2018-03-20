@@ -1,27 +1,39 @@
 #include <iostream>
 using namespace std;
-class CPeople
+class container
 {
-private:
-    int i;
+protected:
+	double radius;
 public:
-    CPeople(int ii) : i(ii) {}
-    friend int operator- (const CPeople&a , const CPeople& b);
-    int operator+ (const CPeople& a)
-    {
-        return (i+a.i);
-    }
+	//container(double radius);
+	virtual double surface_area()=0;
+	virtual double volume()=0;
 };
-int operator- (const CPeople& a, const CPeople& b)
+//container::container(double radius)
+//{
+//	this->radius = radius;
+//}
+class cube : public container
 {
-    return (a.i - b.i);
-}
+public:
+	cube(double r) { this->radius = r;}
+	double surface_area()
+	{
+		return radius*radius*6;
+	}
+	double volume()
+	{
+		return radius*radius*6;
+	}
+	void set_radius(double r)
+	{
+		this->radius = r;
+	}
+};
 int main()
 {
-    CPeople a1(12) , a2(12);
-    cout << a1+3 << endl;
-    cout << 3-a2 << endl;
-
-    system("pause");
-    return 0;
+	container *mycube = new cube(6.0);
+	cout << " cube : " << mycube->surface_area() << " " <<mycube->volume() << endl;
+	delete mycube;
+	return 0;
 }
