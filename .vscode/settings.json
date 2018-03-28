@@ -8,7 +8,9 @@
         "ostream": "cpp",
         "algorithm": "cpp",
         "thread": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "xiosbase": "cpp",
+        "iosfwd": "cpp"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
