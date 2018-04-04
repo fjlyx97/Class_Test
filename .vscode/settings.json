@@ -18,5 +18,6 @@
       "[c]": {
           "editor.quickSuggestions": true
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Enabled",
+    "path-intellisense.extensionOnImport": true
 }
