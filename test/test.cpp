@@ -1,20 +1,14 @@
 #include <iostream>
-#include <string>
-#include <map>
 using namespace std;
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    map<string,int> m;
-    m["name"] = 30;
-    m["test"] = 30;
-    map<string,int>::iterator it;
-    for (it = m.begin() ; it != m.end() ; it++)
-    {
-        cout << it->first << endl;
-    }
-
+    const int a = 20;
+    int& b = const_cast<int&>(a);
+    cout << b << endl;
+    b = 30;
+    cout << b << endl;
+    cout << a << endl;
+    cout << 10 << endl;
     system("pause");
     return 0;
 }

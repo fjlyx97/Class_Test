@@ -54,8 +54,6 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    freopen("1.in","r",stdin);
-    //freopen("1.out","w",stdout);
     int N;
     cin >> N;
     for (int i = 1 ; i <= N ; i++)
