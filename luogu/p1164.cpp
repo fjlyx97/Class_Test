@@ -1,29 +1,29 @@
 #include <iostream>
-#include <cstdio>
-#include <string.h>
 using namespace std;
-int menu[101];
+#define max(a,b) a>b?a:b
+int order[101] = {0};
 int book[101][10001] = {0};
+int N , M;
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    char str[10];
-    int N , M;
     cin >> N >> M;
-    for ( int i = 1 ; i <= N ; i++)
+    for (int i = 1 ; i <= N ; i++)
     {
-        cin >> menu[i];
+        cin >> order[i];
     }
     for (int i = 1 ; i <= N ; i++)
     {
-        for ( int j = M ; j > 0 ; j--)
+        for (int j = 1 ; j <= M ; j++)
         {
-            if ( j >= menu[i] )
+            if (j == order[i])
             {
-                book[i][j] += book[i-1][j-menu[i]]+1;
+                book[i][j] = book[i-1][j] + 1;
             }
-            else
+            else if (j > order[i])
+            {
+                book[i][j] = book[i-1][j] + book[i-1][j-order[i]];
+            }
+            else if (j < order[i])
             {
                 book[i][j] = book[i-1][j];
             }
