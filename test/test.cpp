@@ -1,56 +1,33 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
-#define max(a,b) a>b?a:b
-int book[101][2] = {0};
-int mark[101][1001] = {0};
-int dp(int i , int mtime)
+class book
 {
-    if (i == 1 && mtime >= book[i][0])
+private:
+    int qu;
+    int price;
+    int iIndex;
+    static int gInt;
+public:
+    book()
     {
-        mark[i][mtime] = book[i][1];
-        return mark[i][mtime];
+        iIndex = gInt++;
+        qu = iIndex + 1;
+        price = qu * 10;
     }
-    else if (i == 1 && mtime < book[i][0])
+    void print()
     {
-        mark[i][mtime] = 0;
-        return 0;
+        cout << "第" << iIndex + 1 << "个值是" << price << endl;
     }
-
-    if (mtime >= book[i][0])
-    {
-        if (mark[i][mtime] != -1)
-        {
-            return mark[i][mtime];
-        }
-        int a = dp(i-1,mtime-book[i][0])+book[i][1];
-        int b = dp(i-1,mtime);
-        mark[i][mtime] = max(a,b);
-        return mark[i][mtime];
-    }
-    else
-    {
-        if (mark[i][mtime] != -1)
-        {
-            return mark[i][mtime];
-        }
-        else
-        {
-          mark[i][mtime] = mark[i-1][mtime];
-          return mark[i][mtime];
-        }
-    }
-}
+};
+int book::gInt = 0;
 int main()
 {
-    memset(mark,-1,sizeof(mark));
-    int T , M;
-    cin >> T >> M;
-    for (int i = 1 ; i <= M ; i++)
+    book *p[5];
+    for (int i = 0 ; i < 5 ; i++)
     {
-        cin >> book[i][0] >> book[i][1];
+        p[i] = new book;
+        p[i]->print();
+        delete p[i];
     }
-    cout << dp(M,T) << endl;
-    system("pause");
     return 0;
 }
