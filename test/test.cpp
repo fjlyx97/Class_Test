@@ -1,33 +1,14 @@
 #include <iostream>
+#include <string>
+#include <map>
 using namespace std;
-class book
-{
-private:
-    int qu;
-    int price;
-    int iIndex;
-    static int gInt;
-public:
-    book()
-    {
-        iIndex = gInt++;
-        qu = iIndex + 1;
-        price = qu * 10;
-    }
-    void print()
-    {
-        cout << "第" << iIndex + 1 << "个值是" << price << endl;
-    }
-};
-int book::gInt = 0;
+
 int main()
 {
-    book *p[5];
-    for (int i = 0 ; i < 5 ; i++)
-    {
-        p[i] = new book;
-        p[i]->print();
-        delete p[i];
-    }
+    map<string,int> m1;
+    m1["test"] = 1;
+    map<string,int>::iterator it = m1.find("test");
+    cout << it->first << endl;
+    system("pause");
     return 0;
 }
