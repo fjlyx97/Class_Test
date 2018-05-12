@@ -10,7 +10,10 @@
         "thread": "cpp",
         "xutility": "cpp",
         "xiosbase": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
