@@ -1,19 +1,24 @@
 #include <iostream>
 using namespace std;
-void fun(int *pInt[2])
-{
-	int* t = pInt[0];
-	pInt[0] = pInt[1];
-	pInt[1] = t;
-}
+class Base{
+public:
+	void show()
+    {
+        cout << "Base" << endl;
+    }
+};
+class Dev : public Base{
+public:
+    void DevShow()
+    {
+        cout << "Dev" << endl;
+    }
+};
 int main()
 {
-	int a = 10;
-	int b = 20;
-	int* pInt[2] = {&a,&b};
-	fun(pInt);
-	cout << *pInt[0] << " " << *pInt[1];
-
+    Dev d;
+    Base* b = &d;
+    
 	system("pause");
 	return 0;
 }
