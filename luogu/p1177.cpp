@@ -1,65 +1,60 @@
 #include <iostream>
 using namespace std;
-void swap(int i , int j , int* num)
+void merge(int* num , int* ans_num , int l , int r , int mid)
 {
-    int temp;
-    temp = num[i];
-    num[i] = num[j];
-    num[j] = temp;
+	int i = l , j = mid+1 , k = l;
+	while ( i <= mid && j <= r)
+	{
+		if (num[i] < num[j])
+		{
+			ans_num[k++] = num[i++];
+		}
+		else
+		{
+			ans_num[k++] = num[j++];
+		}
+	}
+	while (i <= mid)
+	{
+		ans_num[k++] = num[i++];
+	}
+	while (j <= r)
+	{
+		ans_num[k++] = num[j++];
+	}
+	for ( i = l ; i <= r ; i++)
+	{
+		num[i] = ans_num[i];
+	}
 }
-void quick_sort(int left , int right , int* num)
+void mergeSort(int l , int r , int* num , int* ans_num)
 {
-    if (left > right )
-    {
-        return;
-    }
-    int i = left;
-    int j = right;
-    int base_num = num[left];
-    while( i != j)
-    {
-        for ( ; j > i ; j--)
-        {
-            if (num[j] < base_num)
-            {
-                break;
-            }
-        }
-        for ( ; i < j ; i++)
-        {
-            if (num[i] > base_num)
-            {
-                break;
-            }
-        }       
-        if ( i < j)
-        {
-            swap(i,j,num);
-        }
-    }
-    swap(left,i,num);
-    quick_sort(left,i-1,num);
-    quick_sort(i+1,right,num);
-    return;
+	int mid = (l+r)/2;
+	if (l < r)
+	{
+		mergeSort(l , mid , num , ans_num);
+		mergeSort(mid+1 , r , num , ans_num);
+		merge(num,ans_num , l , r , mid);
+	}
 }
+int num[101] = {0};
+int ans_num[101] = {0};
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    int N;
-    cin >> N;
-    int num[N];
-    for ( int i = 0 ; i < N ; i++)
-    {
-        cin >> num[i];
-    }
-    quick_sort(0,N-1,num);
-    for ( int i = 0 ; i < N ; i++)
-    {
-        cout << num[i] << " ";
-    }
-    cout << endl;
-
-    system("pause");
-    return 0;
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	int n;	
+	int i;
+	cin >> n;
+	for (i = 0 ; i < n ; i++)
+	{
+		cin >> num[i];
+	}
+	mergeSort(0,n-1,num,ans_num);
+	for (i = 0 ; i < n ; i++)
+	{
+		cout << ans_num[i] << " ";
+	}
+	cout << endl;
+	return 0;
 }

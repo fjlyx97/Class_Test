@@ -14,7 +14,7 @@ void print()
     {
         for (int k = 0 ; k < N ; k++)
         {
-            cout << temp_map[j][k] << " ";
+            cout << map[j][k] << " ";
         }
         cout << endl;
     }
@@ -27,10 +27,114 @@ void swap_str(char& a , char& b)
     a = b;
     b = t;
 }
+int ans_flag = 0;
+void dfs(int step)
+{
+    int flag = 1;
+    if (step == 4 || ans_flag == 1)
+    {
+        return;
+    }
+    /*判定是否符合条件*/
+    for (int j = 0 ; j < N ; j++)
+    {
+        if (strcmp(*(ans_map+j),*(map+j)) != 0)
+        {
+            flag = 0;
+        }
+    }
+    if (flag)
+    {
+        //print();
+        ans_flag = 1;
+        return;
+    }
+    /*保存地图方便回溯*/
+    char save_map[15][15];
+    //cout << "SaveMap:" << endl;
+    for (int i = 0 ; i < N ; i++)
+    {
+        strcpy(save_map[i],map[i]);
+        //cout << save_map[i] << endl;
+    }
+    /*开始搜索*/
+    /*正转*/
+    for (int j = 0 ; j < N ; j++)
+    {
+        for (int k = 0 ; k < N ; k++)
+        {
+            temp_map[j][k] = map[N-k-1][j];
+        }
+    }
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],temp_map[j]);
+    }
+    dfs(step+1);
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],save_map[j]);
+    }
+    /*逆转*/
+    for (int j = 0 ; j < N ; j++)
+    {
+        for (int k = 0 ; k < N ; k++)
+        {
+            temp_map[j][k] = map[k][N-j-1];
+        }
+    }
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],temp_map[j]);
+    }
+    dfs(step+1);
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],save_map[j]);
+    }
+    /*上下翻转*/
+    for (int j = 0 ; j < N ; j++)
+    {
+        for (int k = 0 ; k < N ; k++)
+        {
+            temp_map[j][k] = map[N-j-1][k];
+        }
+    }
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],temp_map[j]);
+    }
+    dfs(step+1);
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],save_map[j]);
+    }
+    /*左右翻转*/
+    for (int j = 0 ; j < N ; j++)
+    {
+        for (int k = 0 ; k < N ; k++)
+        {
+            temp_map[j][k] = map[j][N-k-1];
+        }
+    }
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],temp_map[j]);
+    }
+    //cout << step << endl;
+    //print();
+    dfs(step+1);
+    for (int j = 0 ; j < N ; j++)
+    {
+        strcpy(map[j],save_map[j]);
+    }
+    return;
+}
 int main()
 {
     while (scanf("%d",&N) != EOF)
     {
+        ans_flag = 0;
         for (int i = 0 ; i < N ; i++)
         {
             cin >> map[i];
@@ -39,56 +143,11 @@ int main()
         {
             cin >> ans_map[i];
         }
-        /*开始搜索*/
-        int flag = 1;
-        for (int i = 1 ; i <= 3 ; i++)
-        {
-            /*正转*/
-            for (int j = 0 ; j < N ; j++)
-            {
-                for (int k = 0 ; k < N ; k++)
-                {
-                    temp_map[j][k] = map[N-k-1][j];
-                }
-            }
-            print();
-            /*比较*/
-            for (int j = 0 ; j < N ; j++)
-            {
-                if (strcmp(*(temp_map+j),*(map+j)))
-                {
-                    flag = 0;
-                }
-            }
-            if (flag)
-            {
-                printf("YES");
-                return 0;
-            }
-            /*上下翻转*/
-            for (int j = 0 ; j < N/2 ; j++)
-            {
-                for (int k = 0 ; k < N ; k++)
-                {
-                    swap_str(temp_map[j][k],temp_map[N-j-1][k]);
-                }
-            }
-            print();
-            /*比较*/
-            for (int j = 0 ; j < N ; j++)
-            {
-                if (strcmp(*(temp_map+j),*(map+j)))
-                {
-                    flag = 0;
-                }
-            }
-            if (flag)
-            {
-                printf("YES");
-                return 0;
-            }
-            system("pause");
-        }
+        dfs(1);
+        if (ans_flag)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
     }
 
 
