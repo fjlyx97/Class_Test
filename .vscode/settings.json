@@ -13,7 +13,11 @@
         "iosfwd": "cpp",
         "xhash": "cpp",
         "xstring": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "vector": "cpp"
     },
     "[cpp]": {
           "editor.quickSuggestions": true
