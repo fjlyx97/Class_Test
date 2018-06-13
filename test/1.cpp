@@ -1,12 +1,23 @@
-#include <iostream>
-#include <cstring>
-using namespace std;
-int main()
+#include <stdio.h> 
+#include <stdlib.h>
+char *mystrspc(char *string,int n)
 {
-    char s[20] = "12345";
-    char* p = s;
-    cout << strlen(s) << endl;
-    cout << strlen(p) << endl;
-    system("pause");
-    return 0;
+    int i;
+    string = (char*)malloc(sizeof(char)*n);
+    char* p = string;
+    for (i = 1 ; i <= n ; i++)
+    {
+        *string++ = ' ';
+    }
+    *string = '\0';
+    return p;
+}
+int main(void)
+{
+    char* p;
+    int n;
+    scanf("%d",&n);
+    p = mystrspc(p,n);
+    printf("***%s***",p);
+	return 0;
 }
