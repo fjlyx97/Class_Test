@@ -1,22 +1,23 @@
 #include <iostream>
 using namespace std;
-class CBase
+class test
 {
-private:
-    int age;
 public:
-    CBase() : age(10) {}
-    CBase& operator=(const CBase& c1)
-    {
-        this->age = c1.age;
-        cout << "进入=重载" << endl;
-        return *this;
-    }
+    test();
+    ~test() {};
+private:
+    int i;
 };
+test::test()
+{
+    i = 25;
+    for (int ctr = 0 ; ctr < 10 ; ctr++)
+    {
+        cout << "Counting at"<< ctr << endl;
+    }
+}
+test anObject;
 int main()
 {
-    CBase b1;
-    CBase b2;
-    b2 = b1;
     return 0;
 }
