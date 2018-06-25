@@ -28,6 +28,11 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
+                "/usr/include/c++/8.1.1",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include-fixed",
+                "/usr/include",
                 "${workspaceRoot}"
             ],
             "defines": [],
@@ -36,6 +41,7 @@
                 "path": [
                     "/usr/include",
                     "/usr/local/include",
+                    "/usr/include/c++/8.1.1",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
