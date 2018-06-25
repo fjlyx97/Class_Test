@@ -38,26 +38,32 @@ void writeData();
 // 查询所有学生的数据
 void showStudentData(struct StudentList* stuHead);
 
+// 增加学生节点
+void addStudent(struct StudentList* stuHead);
+
 // 清屏函数
 void clsScreen();
 
 
 int main()
 {
-    //输出欢迎界面
-    printHello();
     //初始化程序
     struct StudentList* stuHead = initStudentManagement();
     int choice;
 
     while (true)
     {
+        //输出欢迎界面
+        printHello();
         printf("请输入操作序号：");
         scanf("%d",&choice);
+        getchar();
+        clsScreen();
 
         switch(choice)
         {
             case 1:
+                addStudent(stuHead);
                 break;
             case 2:
                 break;
@@ -72,7 +78,6 @@ int main()
                 exit(0);
                 break;
             default:
-                clsScreen();
                 printHello();
                 printf("输入错误，请重新输入序号.\n");
                 break;
@@ -118,10 +123,10 @@ void readData(struct StudentList* stuHead)
     struct Student* pstu = stuHead->next;
     int i , j , index;
 
-    printf("读取数据中.....\n");
+    //printf("读取数据中.....\n");
     if ((fb = fopen("stu.dat","r")) != NULL)
     {
-        printf("数据读取成功....\n");
+        //printf("数据读取成功....\n");
         while (!feof(fb))
         {
             fgets(lineContent,1024,fb);
@@ -169,9 +174,10 @@ void readData(struct StudentList* stuHead)
     }
     else
     {
-        printf("数据未找到....\n");
+        //printf("数据未找到....\n");
         fb = fopen("stu.dat","w");
     }
+    fclose(fb);
 }
 
 void showStudentData(struct StudentList* stuHead)
@@ -182,6 +188,7 @@ void showStudentData(struct StudentList* stuHead)
         printf("%s %c %d %s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
         pstu = pstu->next;
     }
+    getchar();
 }
 
 void clsScreen()
@@ -191,4 +198,66 @@ void clsScreen()
     #else
         system("clear");
     #endif
+}
+
+void addStudent(struct StudentList* stuHead)
+{
+    struct Student* pstu = stuHead->next;
+    struct Student* newStu = (struct Student*)malloc(sizeof(struct Student));
+    char name[1024];
+    char sex[2];
+    char age[10];
+    char id[1024];
+    char choice;
+    char saveData[1024];
+    char temp_num[1024];
+    while (pstu->next != NULL)
+    {
+        pstu = pstu->next;
+    }
+    printf("请输入学生姓名：");
+    gets(name);
+    printf("请输入学生性别（M/F）：");
+    gets(sex);
+    printf("请输入学生学生年龄：");
+    gets(age);
+    printf("请输入学生学号：");
+    gets(id);
+
+    printf("\n您输入的姓名是：%s\n性别是：%s\n年龄是：%s\n学号是：%s\n确认或者取消（y/n）：",name,sex,age,id);
+    while(true)
+    {
+        scanf("%c",&choice);
+        getchar();
+        if (choice == 'y')
+        {
+            strcpy(newStu->name,name);
+            newStu->sex = sex[0];
+            newStu->age = atoi(age);
+            strcpy(newStu->id,id);
+            newStu->next = NULL;
+            pstu->next = newStu;
+            FILE* fp;
+            fp = fopen("stu.dat","a");
+            strcat(saveData,name);
+            strcat(saveData," ");
+            strcat(saveData,sex);
+            strcat(saveData," ");
+            strcat(saveData,age);
+            strcat(saveData," ");
+            strcat(saveData,id);
+            strcat(saveData,"\n");
+            fputs(saveData,fp);
+            fclose(fp);
+            break;
+        }
+        else if (choice == 'n')
+        {
+            break;
+        }
+        else
+        {
+            printf("输入错误，请重新输入：");
+        }
+    }
 }
