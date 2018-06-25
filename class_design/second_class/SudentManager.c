@@ -38,6 +38,9 @@ void writeData();
 // 查询所有学生的数据
 void showStudentData(struct StudentList* stuHead);
 
+// 清屏函数
+void clsScreen();
+
 
 int main()
 {
@@ -51,6 +54,7 @@ int main()
     {
         printf("请输入操作序号：");
         scanf("%d",&choice);
+
         switch(choice)
         {
             case 1:
@@ -62,16 +66,18 @@ int main()
             case 4:
                 break;
             case 5: 
+                showStudentData(stuHead);
                 break;
             case 6:
+                exit(0);
                 break;
             default:
+                clsScreen();
+                printHello();
                 printf("输入错误，请重新输入序号.\n");
                 break;
         }
     }
-
-    getchar();
     return 0;
 }
 
@@ -176,4 +182,13 @@ void showStudentData(struct StudentList* stuHead)
         printf("%s %c %d %s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
         pstu = pstu->next;
     }
+}
+
+void clsScreen()
+{
+    #ifdef WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
 }
