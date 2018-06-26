@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef WIN32
+	//vs2010关闭警告
+	#pragma warning(disable:4996)
+	//windows引入conio.h头文件
+	#include <conio.h>
+#endif
+
 #define true 1
 #define false 0
 
@@ -47,6 +54,9 @@ void changeStudent(struct StudentList* stuHead);
 // 删除学生信息
 void delStudent(struct StudentList* stuHead);
 
+// 查询单个学生信息
+void searchStudent(struct StudentList* stuHead);
+
 // 清屏函数
 void clsScreen();
 
@@ -78,6 +88,7 @@ int main()
                 delStudent(stuHead);
                 break;
             case 4:
+				searchStudent(stuHead);
                 break;
             case 5: 
                 showStudentData(stuHead);
@@ -127,7 +138,7 @@ struct StudentList* initStudentManagement()
 void readData(struct StudentList* stuHead)
 {
     FILE* fb;
-    char lineContent[1024];
+	char lineContent[1024] = {0};
     char tempContent[1024];
     char readContentData[ATTRIBUTES][1024];
     struct Student* pstu = stuHead->next;
@@ -139,7 +150,12 @@ void readData(struct StudentList* stuHead)
         //printf("数据读取成功....\n");
         while (!feof(fb))
         {
+			memset(lineContent,0,sizeof(lineContent));
             fgets(lineContent,1024,fb);
+
+			//防止空文件造成无法读取
+			if (lineContent[0] == '\0') return;
+
             index = 0;
             j = 0;
             for (i = 0 ; i <= strlen(lineContent) ; i++)
@@ -207,7 +223,12 @@ void showStudentData(struct StudentList* stuHead)
         printf("%s %c %d %s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
         pstu = pstu->next;
     }
-    getchar();
+    printf("读取完毕，请按回车继续....\n");
+	#ifdef WIN32
+		getche();
+	#else
+		getchar();
+	#endif
 }
 
 void clsScreen()
@@ -230,7 +251,7 @@ void addStudent(struct StudentList* stuHead)
     char choice;
     char saveData[1024];
     char temp_num[1024];
-    while (pstu->next != NULL)
+    while (pstu != NULL && pstu->next != NULL)
     {
         pstu = pstu->next;
     }
@@ -255,7 +276,16 @@ void addStudent(struct StudentList* stuHead)
             newStu->age = atoi(age);
             strcpy(newStu->id,id);
             newStu->next = NULL;
-            pstu->next = newStu;
+			if (pstu == NULL)
+			{
+				pstu = newStu;
+				stuHead->next = pstu;
+				return;
+			}
+			else
+			{
+				pstu->next = newStu;
+			}
             break;
         }
         else if (choice == 'n')
@@ -311,7 +341,12 @@ void changeStudent(struct StudentList* stuHead)
         pstu = pstu->next;
     }
     printf("找不到该学生，请按回车继续...\n");
-    getchar();
+
+	#ifdef WIN32
+		getche();
+	#else
+		getchar();
+	#endif
 }
 
 void delStudent(struct StudentList* stuHead)
@@ -342,7 +377,13 @@ void delStudent(struct StudentList* stuHead)
         pstu = pstu->next;
     }
     printf("无法找到这名学生...\n");
-    getchar();
+
+	#ifdef WIN32
+		getche();
+	#else
+		getchar();
+	#endif
+
     return;
 }
 
@@ -367,6 +408,7 @@ void writeData(struct StudentList* stuHead)
             tempAge[index++] = tempNum % 10 +'0';
             tempNum /= 10;
         }
+		tempAge[index] = '\0';
 
         strcat(saveData,pstu->name);
         strcat(saveData," ");
@@ -380,4 +422,28 @@ void writeData(struct StudentList* stuHead)
         pstu = pstu->next;
     }
     fclose(fp);
+}
+
+void searchStudent(struct StudentList* stuHead)
+{
+	struct Student* pstu = stuHead->next;
+	char stuId[1024];
+	printf("请输入要查询的学生学号：");
+	gets(stuId);
+
+	while(pstu != NULL)
+	{
+		if (strcmp(pstu->id,stuId) == 0)
+		{
+			printf("姓名：%s\n性别：%c\n年龄：%d\n学号：%s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
+			break;
+		}
+		pstu = pstu->next;
+	}
+	#ifdef WIN32
+		getche();
+	#else
+		getchar();
+	#endif
+	return;
 }
