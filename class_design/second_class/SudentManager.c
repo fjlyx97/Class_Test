@@ -33,7 +33,7 @@ struct StudentList* initStudentManagement();
 void readData(struct StudentList* stuHead);
 
 // 写入文件
-void writeData();
+void writeData(struct StudentList* stuHead);
 
 // 查询所有学生的数据
 void showStudentData(struct StudentList* stuHead);
@@ -43,6 +43,9 @@ void addStudent(struct StudentList* stuHead);
 
 // 修改学生信息
 void changeStudent(struct StudentList* stuHead);
+
+// 删除学生信息
+void delStudent(struct StudentList* stuHead);
 
 // 清屏函数
 void clsScreen();
@@ -72,6 +75,7 @@ int main()
                 changeStudent(stuHead);
                 break;
             case 3:
+                delStudent(stuHead);
                 break;
             case 4:
                 break;
@@ -86,6 +90,8 @@ int main()
                 printf("输入错误，请重新输入序号.\n");
                 break;
         }
+        writeData(stuHead);
+        clsScreen();
     }
     return 0;
 }
@@ -154,6 +160,14 @@ void readData(struct StudentList* stuHead)
             newStu->sex = readContentData[1][0];
             newStu->age = atoi(readContentData[2]);
             strcpy(newStu->id,readContentData[3]);
+            for (i = 0 ; i < strlen(newStu->id) ; i++)
+            {
+                if (newStu->id[i] == '\n')
+                {
+                    newStu->id[i] = '\0';
+                    break;
+                }
+            }
             newStu->next = NULL;
 
             if (stuHead->head == NULL)
@@ -187,6 +201,7 @@ void readData(struct StudentList* stuHead)
 void showStudentData(struct StudentList* stuHead)
 {
     struct Student* pstu = stuHead->next;
+    printf("依次顺序为姓名，性别，年龄，学号\n");
     while(pstu != NULL)
     {
         printf("%s %c %d %s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
@@ -241,18 +256,6 @@ void addStudent(struct StudentList* stuHead)
             strcpy(newStu->id,id);
             newStu->next = NULL;
             pstu->next = newStu;
-            FILE* fp;
-            fp = fopen("stu.dat","a");
-            strcat(saveData,name);
-            strcat(saveData," ");
-            strcat(saveData,sex);
-            strcat(saveData," ");
-            strcat(saveData,age);
-            strcat(saveData," ");
-            strcat(saveData,id);
-            strcat(saveData,"\n");
-            fputs(saveData,fp);
-            fclose(fp);
             break;
         }
         else if (choice == 'n')
@@ -273,9 +276,6 @@ void changeStudent(struct StudentList* stuHead)
     printf("请输入要修改的学生学号：");
     gets(changeId);
     int i;
-    // 打开文件
-    //FILE* fp;
-    //fp = fopen("stu.dat","r");
     while(pstu != NULL)
     {
         strcpy(tempId,pstu->id);
@@ -288,9 +288,96 @@ void changeStudent(struct StudentList* stuHead)
         }
         if (strcmp(tempId,changeId) == 0)
         {
-            printf("yes");
-            break;
+            printf("已找到该学生....\n");
+            char name[1024];
+            char sex[2];
+            char age[10];
+            char id[1024];
+            printf("请修改学生姓名：");
+            gets(name);
+            printf("请修改学生性别（M/F）：");
+            gets(sex);
+            printf("请修改学生年龄：");
+            gets(age);
+            printf("请修改学生学号：");
+            gets(id);
+            strcpy(pstu->name,name);
+            pstu->sex = sex[0];
+            pstu->age = atoi(age);
+            strcpy(pstu->id,id);
+            printf("修改成功，请按回车继续...\n");
+            return;
         }
         pstu = pstu->next;
     }
+    printf("找不到该学生，请按回车继续...\n");
+    getchar();
+}
+
+void delStudent(struct StudentList* stuHead)
+{
+    struct Student* pstu = stuHead->next;
+    struct Student* prestu = NULL;
+    char delId[1024];
+    printf("请输入要删除学生的学号：");
+    gets(delId);
+    while (pstu != NULL)
+    {
+        if (strcmp(pstu->id,delId) == 0)
+        {
+            if (prestu == NULL)
+            {
+                stuHead->next = pstu->next;
+            }
+            else
+            {
+                prestu->next = pstu->next;
+            }
+            free(pstu);
+            printf("已删除该学生...\n");
+            getchar();
+            return;
+        }
+        prestu = pstu;
+        pstu = pstu->next;
+    }
+    printf("无法找到这名学生...\n");
+    getchar();
+    return;
+}
+
+void writeData(struct StudentList* stuHead)
+{
+    FILE* fp;
+    fp = fopen("stu.dat","w");
+    char saveData[1024];
+    struct Student* pstu = stuHead->next;
+    while(pstu != NULL)
+    {
+        // 预处理数据
+        memset(saveData,0,sizeof(saveData));
+        char tempAge[101];
+        char tempSex[2];
+        int tempNum = pstu->age;
+        int index = 0;
+        tempSex[0] = pstu->sex;
+        tempSex[1] = '\0';
+        while(tempNum)
+        {
+            tempAge[index++] = tempNum % 10 +'0';
+            tempNum /= 10;
+        }
+
+        strcat(saveData,pstu->name);
+        strcat(saveData," ");
+        strcat(saveData,tempSex);
+        strcat(saveData," ");
+        strcat(saveData,tempAge);
+        strcat(saveData," ");
+        strcat(saveData,pstu->id);
+        strcat(saveData,"\n");
+        fputs(saveData,fp);
+        pstu = pstu->next;
+    }
+    fclose(fp);
 }
