@@ -41,6 +41,9 @@ void showStudentData(struct StudentList* stuHead);
 // 增加学生节点
 void addStudent(struct StudentList* stuHead);
 
+// 修改学生信息
+void changeStudent(struct StudentList* stuHead);
+
 // 清屏函数
 void clsScreen();
 
@@ -66,6 +69,7 @@ int main()
                 addStudent(stuHead);
                 break;
             case 2:
+                changeStudent(stuHead);
                 break;
             case 3:
                 break;
@@ -259,5 +263,34 @@ void addStudent(struct StudentList* stuHead)
         {
             printf("输入错误，请重新输入：");
         }
+    }
+}
+void changeStudent(struct StudentList* stuHead)
+{
+    char changeId[1024];
+    struct Student* pstu = stuHead->next;
+    char tempId[1024];
+    printf("请输入要修改的学生学号：");
+    gets(changeId);
+    int i;
+    // 打开文件
+    //FILE* fp;
+    //fp = fopen("stu.dat","r");
+    while(pstu != NULL)
+    {
+        strcpy(tempId,pstu->id);
+        for (i = 0 ; i < strlen(tempId) ; i++)
+        {
+            if (tempId[i] == '\n')
+            {
+                tempId[i] = '\0';
+            }
+        }
+        if (strcmp(tempId,changeId) == 0)
+        {
+            printf("yes");
+            break;
+        }
+        pstu = pstu->next;
     }
 }
