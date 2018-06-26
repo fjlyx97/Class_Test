@@ -90,7 +90,7 @@ int main()
             case 4:
 				searchStudent(stuHead);
                 break;
-            case 5: 
+            case 5:
                 showStudentData(stuHead);
                 break;
             case 6:
@@ -249,8 +249,6 @@ void addStudent(struct StudentList* stuHead)
     char age[10];
     char id[1024];
     char choice;
-    char saveData[1024];
-    char temp_num[1024];
     while (pstu != NULL && pstu->next != NULL)
     {
         pstu = pstu->next;
