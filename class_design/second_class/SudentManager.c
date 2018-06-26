@@ -303,6 +303,7 @@ void changeStudent(struct StudentList* stuHead)
     char changeId[1024];
     struct Student* pstu = stuHead->next;
     char tempId[1024];
+	int flag = 0;
     printf("请输入要修改的学生学号：");
     gets(changeId);
     int i;
@@ -335,12 +336,14 @@ void changeStudent(struct StudentList* stuHead)
             pstu->sex = sex[0];
             pstu->age = atoi(age);
             strcpy(pstu->id,id);
+			flag = 1;
             printf("修改成功，请按回车继续...\n");
-            return;
+			break;
         }
         pstu = pstu->next;
     }
-    printf("找不到该学生，请按回车继续...\n");
+	if (!flag)
+		printf("找不到该学生，请按回车继续...\n");
 
 	#ifdef WIN32
 		getche();
@@ -430,16 +433,23 @@ void searchStudent(struct StudentList* stuHead)
 	char stuId[1024];
 	printf("请输入要查询的学生学号：");
 	gets(stuId);
+	int flag = 0;
 
 	while(pstu != NULL)
 	{
 		if (strcmp(pstu->id,stuId) == 0)
 		{
 			printf("姓名：%s\n性别：%c\n年龄：%d\n学号：%s\n",pstu->name,pstu->sex,pstu->age,pstu->id);
+			flag = 1;
 			break;
 		}
 		pstu = pstu->next;
 	}
+	if (!flag)
+	{
+		printf("未能找到该学生....\n");
+	}
+	printf("请按回车键继续.....\n");
 	#ifdef WIN32
 		getche();
 	#else
