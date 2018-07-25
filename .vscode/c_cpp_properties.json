@@ -28,6 +28,11 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
+                "/usr/include/c++/8.1.1",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include-fixed",
+                "/usr/include",
                 "${workspaceRoot}"
             ],
             "defines": [],
@@ -36,6 +41,7 @@
                 "path": [
                     "/usr/include",
                     "/usr/local/include",
+                    "/usr/include/c++/8.1.1",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
@@ -45,11 +51,11 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.11.25503/include/*",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/um",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/ucrt",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/shared",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/winrt",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.14.26428/include/*",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/winrt",
                 "${workspaceRoot}"
             ],
             "defines": [
@@ -59,11 +65,11 @@
             "intelliSenseMode": "msvc-x64",
             "browse": {
                 "path": [
-                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.11.25503/include/*",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/um",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/ucrt",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/shared",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/winrt",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.14.26428/include/*",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/um",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/ucrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/shared",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/winrt",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,

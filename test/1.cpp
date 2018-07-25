@@ -1,21 +1,8 @@
 #include <iostream>
-using namespace std;
-class CBase
-{
-public:
-    void show()
-    {
-        cout << a << endl;
-    }
-public:
-    int a;
-};
-
+#include <cstdio>
 int main()  
 {  
-    CBase obj2;
-    const CBase* ptr = new CBase;
-    ptr->a = 100;
+    std::cout << "test" << std::endl;
     system("pause");
     return 0;  
 }       
