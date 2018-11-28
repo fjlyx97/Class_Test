@@ -24,6 +24,7 @@
       "[c]": {
           "editor.quickSuggestions": true
     },
-    "C_Cpp.errorSquiggles": "Enabled",
-    "path-intellisense.extensionOnImport": true
+    "C_Cpp.errorSquiggles": "Disabled",
+    "path-intellisense.extensionOnImport": true,
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

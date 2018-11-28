@@ -13,9 +13,6 @@ int main(void)
         result += add(i+1 , result_temp) / add(i , result_temp );
     }
     printf("%.2f",result);
-
-
-
     system("pause");
     return 0;
 }
