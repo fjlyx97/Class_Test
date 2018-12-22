@@ -2,12 +2,8 @@
 #include <stdlib.h>
 int main()
 {
-    int k = 0;
-    do
-    {
-        ++k;
-        printf("%d\n",k);
-    }while(k>=0);
+    int y = 2456;
+    printf("y=%#8o\n",y);
     system("pause");
     return 0;
 }
