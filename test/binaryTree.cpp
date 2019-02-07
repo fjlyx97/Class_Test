@@ -1,3 +1,4 @@
+//核心思路，依次对比节点，小的放右边，大的放左边
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -73,7 +74,6 @@ void printTreeNode(Tree root)
     }
 }
 
-//中序遍历
 void printInorderTreeNode(Tree root)
 {
     if (root == NULL)
