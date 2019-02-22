@@ -1,24 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#define MAXSIZE 50
-struct A{
-    int* num;
-};
-void print(A* newA)
-{
-    int b = 10;
-    newA->num = &b;
-
+#include <bits/stdc++.h>
+using namespace std;
+int a[100];
+void rd(int n){
+	for(int i = 0; i < n; ++i){
+		int l, r;
+		scanf("%d %d", &l, &r);
+		while(l < r) a[l++]++; 
+	}
 }
-
 int main()
 {
-    int num = 0;
-    A a;
-    a.num = &num;
-    print(&a);
-
-    system("pause");
-    return 0;
+	int n;
+	scanf("%d", &n);
+	rd(n);
+	rd(n);
+	int sum;
+	for(int i = 1; i < 1000000; ++i){
+		if(a[i] == 2) ++sum;
+	}
+	printf("%d\n", sum);
+	return 0;
 }
