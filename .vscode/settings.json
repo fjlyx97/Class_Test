@@ -28,5 +28,6 @@
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "path-intellisense.extensionOnImport": true,
-    "C_Cpp.intelliSenseEngineFallback": "Enabled"
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "python.linting.pylintEnabled": true
 }
