@@ -57,7 +57,6 @@ struct Sqlist
     }
 };
 
-
 int main()
 {
     srand(time(0));
