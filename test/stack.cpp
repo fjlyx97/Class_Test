@@ -161,9 +161,11 @@ private:
         //反转栈
         while(!this->mStack.empty())
         {
+            cout << this->mStack.top();
             this->reverseStack.push(this->mStack.top());
             this->mStack.pop();
         }
+        cout << endl;
         /* 调试代码
         //拷贝代码不同编译器出现问题
         //memcpy(&this->mStack,&reverseStack,sizeof(reverseStack));
@@ -240,7 +242,7 @@ public:
 
 int main()
 {
-    string inputExpression("(9+8*7/6+3)*5/3");
+    string inputExpression("1+2*(3-4)-5/6");
     Calculator mCalmulator(inputExpression);
     double result = mCalmulator.getResult();
     cout << "结果为: " << result << endl;
