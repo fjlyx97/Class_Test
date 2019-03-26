@@ -21,12 +21,12 @@
         "future": "cpp"
     },
     "[cpp]": {
-          "editor.quickSuggestions": true
-      },
-      "[c]": {
-          "editor.quickSuggestions": true
+        "editor.quickSuggestions": true
     },
-    "C_Cpp.errorSquiggles": "Disabled",
+    "[c]": {
+        "editor.quickSuggestions": true
+    },
+    "C_Cpp.errorSquiggles": "Enabled",
     "path-intellisense.extensionOnImport": true,
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "python.linting.pylintEnabled": true
