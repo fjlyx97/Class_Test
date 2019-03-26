@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <cstring>
 using namespace std;
 
 const int maxEdge = INT32_MAX;
@@ -136,12 +137,55 @@ public:
 
     bool getMinDis(int vertex)
     {
-        return false;
+        int dis[size];
+        for (int i = 0 ; i < size ; i++)
+        {
+            dis[i] = maxEdge;
+            isVisit[i] = false;
+        }
+        GraphVertex* currentVertex = graphVertexs+vertex;
+        while (currentVertex)
+        {
+            dis[currentVertex->vertex] = currentVertex->weight;
+            currentVertex = currentVertex->next;
+        }
+        isVisit[vertex] = true;
+
+        currentVertex = graphVertexs+vertex;
+        for (int i = 0 ; i < size-1 ; i++)
+        {
+            int minDis = maxEdge;
+            GraphVertex* minVertex;
+            for (int i = 0 ; i < size ; i++)
+            {
+                if (!isVisit[i] && minDis > dis[i])
+                {
+                    minDis = dis[i];
+                    minVertex = graphVertexs+i;
+                }
+            }
+
+            currentVertex = graphVertexs+minVertex->vertex;
+            isVisit[minVertex->vertex] = true;
+            
+            minVertex = minVertex->next;
+            while (minVertex)
+            {
+                if (minVertex->weight+minDis < dis[minVertex->vertex])
+                    dis[minVertex->vertex] = minVertex->weight+minDis;
+                minVertex = minVertex->next;
+            }
+            for (auto num : dis)
+                cout << num << " ";
+            cout << endl;
+        }
+
+        return true;
     }
 };
 int main()
 {
-/*图的数据
+/*图的数据 最短路径测试
 0 1 12 -1 -1 -1
 -1 0 9 3 -1 -1
 -1 -1 0 -1 5 -1
@@ -149,7 +193,7 @@ int main()
 -1 -1 -1 -1 0 4
 -1 -1 -1 -1 -1 0
 */
-/*
+/* 深搜广搜测试
 0 1 1 -1 -1 -1 -1 -1
 1 0 -1 1 1 -1 -1 -1
 1 -1 0 -1 -1 1 1 -1
@@ -161,15 +205,15 @@ int main()
 dfs 0 1 3 7 4 5 2 5
 bfs 0 1 2 3 4 5 6 7
 */
-    Graph<int> mGraph(8);
+    Graph<int> mGraph(6);
     mGraph.initGraph();
     mGraph.printGraph();
     cout << endl;
-#if 0
     mGraph.getMinDis(0);
+#if 0
     mGraph.dfsTraverse();
     mGraph.bfsTraverse();
 #endif
-
+    system("pause");
     return 0;
 }
