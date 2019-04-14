@@ -84,16 +84,19 @@ public:
 int main()
 {
     LinkList<int> mList;
-    for (int i = 0 ; i < 10 ; i++)
-    {
-        mList.insertNode(i*2);
-    }
-    mList.printLinkList();
-    mList.deleteNode(0);
-    mList.deleteNode(6);
-    mList.deleteNode(18);
-    mList.printLinkList();
-    cout << mList.locateNode(2) << endl;
+    mList.insertNode(20);
+    mList.deleteNode(20);
+    mList.insertNode(20);
+    //for (int i = 0 ; i < 10 ; i++)
+    //{
+    //    mList.insertNode(i*2);
+    //}
+    //mList.printLinkList();
+    //mList.deleteNode(0);
+    //mList.deleteNode(6);
+    //mList.deleteNode(18);
+    //mList.printLinkList();
+    //cout << mList.locateNode(2) << endl;
 
     return 0;
 }
