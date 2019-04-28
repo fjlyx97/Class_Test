@@ -1,11 +1,18 @@
 #include <iostream>
 using namespace std;
-int main()
-{
-    char test[] = "你";
-    cout << test[0] << " " << test[1] << endl;
-    cout << test << endl;
 
-    system("pause");
+void F(int a) {
+	cout << a << endl;
+}
+
+template<class A>
+void G(A &&a) {
+	return F(std::forward<A>(a));  
+}
+
+int main() {
+	G(5);
+
+	system("pause");
     return 0;
 }
