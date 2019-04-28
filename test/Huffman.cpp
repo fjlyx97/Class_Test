@@ -13,10 +13,12 @@ private:
     {
         char saveChar;
         int weight;
+        TreeNode* parent;
         TreeNode* pLeft;
         TreeNode* pRight;
         bool isVisit;
-        TreeNode(char SaveChar , int Weight) : saveChar(SaveChar) , weight(Weight) , isVisit(false) , pLeft(NULL) , pRight(NULL) {}
+        stack<int> path;
+        TreeNode(char SaveChar , int Weight) : saveChar(SaveChar) , weight(Weight) , isVisit(false) , parent(NULL) , pLeft(NULL) , pRight(NULL) {}
     };
     struct cmp
     {
@@ -29,6 +31,7 @@ private:
     string initString;
     int countChar[27];
     priority_queue<TreeNode*,vector<TreeNode*>,cmp> tree;
+    vector<TreeNode*> treeLeaf;
     TreeNode* treeRoot;
 
 public:
@@ -51,8 +54,14 @@ public:
             TreeNode* secondNode = tree.top();
             tree.pop();
             TreeNode* newNode = new TreeNode(' ',firstNode->weight+secondNode->weight);
+            if (!firstNode->pLeft && !firstNode->pRight)
+                treeLeaf.push_back(firstNode);
+            if (!secondNode->pLeft && !secondNode->pRight)
+                treeLeaf.push_back(secondNode);
             newNode->pLeft = firstNode;
             newNode->pRight = secondNode;
+            firstNode->parent = newNode;
+            secondNode->parent = newNode;
             tree.push(newNode);
         }
         treeRoot = tree.top();
@@ -72,8 +81,9 @@ public:
         }
     }
 
-    void showCoding()
+    void encode()
     {
+#if 0
         stack<TreeNode*> treeStack;
         TreeNode* currentNode = treeRoot;
         while (currentNode || !treeStack.empty())
@@ -94,13 +104,57 @@ public:
                 currentNode = currentNode->pRight;
             }
         }
+#endif
+        vector<TreeNode*>::iterator iter = treeLeaf.begin();
+        for ( ; iter != treeLeaf.end() ; iter++)
+        {
+            stack<int> temp;
+            TreeNode* currentNode = *iter;
+            TreeNode* currentNodeParent = currentNode->parent;
+            cout << "Char is " << currentNode->saveChar << " Weight is " << currentNode->weight << endl;
+            while(currentNodeParent)
+            {
+                if (currentNodeParent->pLeft == currentNode)
+                    temp.push(0);
+                else
+                    temp.push(1);
+                currentNode = currentNodeParent;
+                currentNodeParent = currentNode->parent;
+            }
+            while (!temp.empty())
+            {
+                cout << temp.top();
+                temp.pop();
+            }
+            cout << endl;
+        }
+    }
+    void decode(string decodeString)
+    {
+        cout << "Decode : ";
+        TreeNode* currentNode = treeRoot;
+        for (int i = 0 ; i < decodeString.size() ; i++)
+        {
+            if (decodeString[i] == '0')
+                currentNode = currentNode->pLeft;
+            else
+                currentNode = currentNode->pRight;
+            if (!currentNode->pLeft && !currentNode->pRight)
+            {
+                cout << currentNode->saveChar;
+                currentNode = treeRoot;
+            }
+        }
+        cout << endl;
     }
 };
 int main()
 {
     HuffmanTree huffmanTree("helloworld");
     huffmanTree.showSendString();
-    huffmanTree.showCoding();
+    huffmanTree.encode();
+    huffmanTree.decode(move("101110011110100101000111010"));
+    huffmanTree.decode(move("10111011101110111011"));
 
 
 
