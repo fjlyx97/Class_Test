@@ -1,6 +1,7 @@
 #VScode
 #launch.json
 #tasks.json
+.vscode
 .vscode/ipch/*
 
 
