@@ -1,159 +1,147 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<Windows.h>
-#include<conio.h>
+#include <iostream>
+#include <stack>
+#include <cstring>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <string>
+#include <set>
+#include <queue>
+#include <deque>
 using namespace std;
-typedef struct Student
-{
-	char num[15];//学号
-	char name[10];//名字
-	char sex[5];//性别
-	char age[3];//年龄
-	int score;//分数
-
-	struct Student *next;
-    Student& operator= (const Student &t)
-    {
-        this->score = t.score;
-        strcpy(this->name ,t.name);
-        strcpy(this->sex ,t.sex);
-        strcpy(this->age ,t.age);
-        strcpy(this->num ,t.num);
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
     }
-}Stu;
-
-Student *head=NULL;
-Student *tail=NULL;
-int sum=0;
-int scan(Student *now)//输入一个
-{
-	memset(now->num,0,sizeof(now->num));
-	memset(now->name,0,sizeof(now->name));
-	memset(now->sex,0,sizeof(now->sex));
-	memset(now->age,0,sizeof(now->age));
-
-	scanf("%s",now->num);
-	if(strcmp(now->num,"0")==0)
-		return 0;
-	scanf("%s",now->name);
-	scanf("%s",now->sex);
-	scanf("%s",now->age);
-	scanf("%d", &now->score);
-	getchar();
-	return 1;
-}
-void print(Student *now)//输出一个
-{
-	printf("#学号：%s ",now->num);
-	printf("名字：%s ",now->name);
-	printf("性别：%s ",now->sex);
-	printf("年龄：%s ",now->age);
-	printf("分数：%d\n",now->score);
-	return;
-}
-int add()//添加
-{
-	//static int k=0;
-	int flag=1;
-	Student *now;
-	if (sum == 0)
-	{
-		head =(Student*)malloc(sizeof(Student));
-		head->next = NULL;
-		//输入
-		flag=scan(head);
-		//print(head);
-		tail = head;
-	}
-	else
-	{
-		if (!(now =(Student*)malloc(sizeof(Student))))
-		{
-			printf("存储空间已满！");
-			return 0;
-		}
-		//输入
-		tail->next = now;
-		flag=scan(now);
-		now->next = NULL;
-		tail = now;
-	}
-	//print(tail);
-	//gotoxy(20,k+2);
-	if(flag)
-		sum++;
-	return flag;
-}
-void input()//输入全部
-{
-	Student *p;
-	int num,i=0;
-	while (1)
-	{
-		if(add()==0)
-		{
-			break;
-		}
-		i++;
-	}
-	return;
-}
-void output()
-{
-	int i;
-	Student *p;
-		for (i = 1; i <= sum; i++)
-		{
-			if (i == 1)
-				p = head;
-			else
-				p = p->next;
-			print(p);
-		}
-	return;
-}
-void sort()//排序
-{
-	int i,j;
-    bool isSwap;
-	Student *pi,*pj,*t=(Student*)malloc(sizeof(Student)),*max;
-    int maxScore;
-	for(i=1;i<sum;i++)
-	{
-		if(i==1)
-			pi=head;
-		else
-			pi=pi->next;
-        isSwap = false;
- 	 	maxScore=pi->score;
- 	 	pj=pi->next;
-		for(j=i+1;j<=sum;j++)
-		{
-			if(pj->score > maxScore)
-			{
-                isSwap = true;
-                maxScore = pj->score;
-				max=pj;
-			}
-			pj=pj->next;
-		}
-        if (isSwap)
+};
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    vector<int> multiply(const vector<int>& A) {
+        vector<int> ans;
+        if (A.empty())
+            return ans;
+        vector<int> head , tail;
+        int t = 1;
+        for (int i = 0 ; i < A.size() ; i++)
         {
-            *t=*pi;
-            *pi=*max;
-            *max=*t;
+            t *= A[i];
+            head.push_back(t);
         }
-		//max->next=pi->next;
-		//pi->next=t->next;
- 	}
- 	output();
-}
+        t = 1;
+        for (int i = A.size()-1 ; i >= 0 ; i--)
+        {
+            t *= A[i];
+            tail.push_back(t);
+        }
+        for (auto t : head)
+            cout << t << " ";
+        cout << endl;
+        for (auto t : tail)
+            cout << t << " ";
+        for (int i = 0 ; i < A.size() ; i++)
+        {
+            int left = i-1;
+            int right = (A.size()-1)-i-1;
+            if (left < 0)
+            {
+                ans.push_back(tail[tail.size()-2]);
+                continue;
+            }
+            if (right < 0)
+            {
+                ans.push_back(head[head.size()-2]);
+                continue;
+            }
+            ans.push_back(head[left]*head[right]);
+        }
+        return ans;
+    }
+};
 int main()
 {
-	input();
-	sort();
-	system("pause");
+    vector<int> t = {1,2,3,4,5};
+    Solution s;
+    for (auto a :s.multiply(t))
+        cout << a << " ";
+    cout << endl;
+    //vector<vector<int> > t;
+    //vector<int> ans = {2,3,4,2,6,2,5,1};
+    //Solution s;
+    //for (auto t : vector<int>(s.maxInWindows(ans,3)))
+    //    cout << t << " ";
+    cout << endl;
+    //TreeNode *pHead = new TreeNode(8);
+    //TreeNode *pHead1 = new TreeNode(6);
+    //TreeNode *pHead2 = new TreeNode(10);
+    //TreeNode *pHead3 = new TreeNode(5);
+    //TreeNode *pHead4 = new TreeNode(7);
+    //TreeNode *pHead5 = new TreeNode(9);
+    //TreeNode *pHead6 = new TreeNode(11);
+    //pHead->left = pHead1;
+    //pHead->right = pHead2;
+    //pHead1->left = pHead3;
+    //pHead1->right = pHead4;
+    //pHead2->left = pHead5;
+    //pHead2->right = pHead6;
+    //t = s.Print(pHead);
+    //for (auto t1 : t)
+    //{
+    //    for (auto t2 : t1)
+    //        cout << t2 << " ";
+    //    cout << endl;
+    //}
+    //cout << endl;
 
-	return 0;
+    //char* t = s.Serialize(pHead);
+    //cout << t << endl;
+    //TreeNode *root = s.Deserialize(t);
+    //cout << root << endl;
+    //TreeNode *pNode1 = new TreeNode(2);
+    //TreeNode *pNode2 = new TreeNode(4);
+    //TreeNode *pNode3 = new TreeNode(7);
+    //pNode1->left = pNode2;
+    //pNode2->left = pNode3;
+    //cout << s.HasSubtree(pHead,pHead1) << endl;
+    //cout << s.HasSubtree(pHead,pNode1) << endl;
+    //cout << s.HasSubtree(nullptr,pHead4) << endl;
+    //cout << s.HasSubtree(pHead,nullptr) << endl;
+    //cout << s.HasSubtree(nullptr,nullptr) << endl;
+
+    //Solution s;
+    //ListNode* pHead = new ListNode(2);
+    //ListNode* pHead1 = new ListNode(2);
+    //ListNode* pHead2 = new ListNode(3);
+    //ListNode* pHead3 = new ListNode(1);
+    //ListNode* pHead4 = new ListNode(1);
+    //ListNode* pHead5 = new ListNode(3);
+    //ListNode* pHead6 = new ListNode(5);
+    //pHead->next = pHead1;
+    //pHead1->next = pHead2;
+    //pHead2->next = pHead3;
+    //pHead3->next = pHead4;
+    //pHead4->next = pHead5;
+    //pHead5->next = pHead6;
+    //pHead6->next = pHead4;
+    system("pause");
+    return 0;
 }
